@@ -1,0 +1,27 @@
+{
+  "name": "chicken_scratch",
+  "version": "1.0.0",
+  "description": "Collaborative story and illustration project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kdgiddyup/chicken_scratch.git"
+  },
+  "author": "kdgiddyup, mgcortez,kfuetterer",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kdgiddyup/chicken_scratch/issues"
+  },
+  "homepage": "https://github.com/kdgiddyup/chicken_scratch#readme",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express-handlebars": "^3.0.0",
+    "handlebars": "^4.0.8",
+    "method-override": "^2.3.8",
+    "mysql": "^2.13.0",
+    "sequelize": "^3.30.4"
+  }
+}

@@ -4,12 +4,14 @@ module.exports = function(sequelize, DataTypes) {
     title: DataTypes.STRING,
     blurb: DataTypes.STRING,
     rank: DataTypes.STRING
-    // classMethods: {
-    //   associate: function(models) {
-    //     Story.hasMany(models.Contribution);
-    //     Story.hasMany(models.Art);
-    //   }
-    // }
+  },
+  {
+    classMethods: {
+      associate: function(models) {
+        Story.hasMany(models.Contribution);
+        Story.hasMany(models.Art);
+      }
+    }
   });
   return Story;
 };

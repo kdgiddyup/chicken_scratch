@@ -3,6 +3,12 @@ var methodOverride = require("method-override");
 var bodyParser = require("body-parser");
 var exphbs = require("express-handlebars");
 
+// for aws storage, require the aws sdk
+var AWS = require('aws-sdk');
+var s3 = new AWS.S3();
+
+
+
 var db = require("./models");
 
 var app = express();

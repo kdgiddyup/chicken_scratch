@@ -1,5 +1,7 @@
 var db = require("../models");
 
+module.exports = function(app){
+
 //GET ALL STORIES AND BLURBS
 // router.get("/", function(req, res) {
 
@@ -47,4 +49,4 @@ var db = require("../models");
 //     })
 // });
 
-module.exports = function(app){};
+}; // end export function

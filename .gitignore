@@ -36,6 +36,10 @@
 ehthumbs.db
 Thumbs.db
 
+# environmental variable files #
+###############################
+.env
+
 #npm packages #
 ###############
 node_modules/

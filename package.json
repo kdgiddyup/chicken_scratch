@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/kdgiddyup/chicken_scratch#readme",
   "dependencies": {
+    "aws-sdk": "^2.50.0",
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
     "express-handlebars": "^3.0.0",

@@ -4,5 +4,5 @@
 
 #textbox {
     height: 200px;
-    text-overflow:
+    overflow: auto
 }

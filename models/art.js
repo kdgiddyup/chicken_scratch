@@ -2,8 +2,7 @@
 module.exports = function(sequelize, DataTypes) {
   var Art = sequelize.define("Art", {
     art_file: DataTypes.STRING,
-    rank: DataTypes.STRING,
-    isCover: DataTypes.BOOLEAN
+    rank: DataTypes.STRING
   },
   {
     classMethods: {

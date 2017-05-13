@@ -12,7 +12,7 @@ var s3 = new AWS.S3();
 var db = require("./models");
 
 var app = express();
-var PORT = process.env.NODE_ENV || 3000;
+var PORT = process.env.NODE_ENV || 8080;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

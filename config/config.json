@@ -1,6 +1,9 @@
 {
   "development": {
-    "use_env_variable":"JawsDB_URL",
+    "username": "root",
+    "password": "SqlDatabaseRoot",
+    "database": "chickenscratch_db",
+    "host": "localhost",
     "dialect": "mysql"
   },
   "test": {
@@ -15,3 +18,4 @@
     "dialect": "mysql"
   }
 }
+

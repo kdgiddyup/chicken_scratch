@@ -1,56 +1,111 @@
-<h1>Cats!</h1>
+<h1>Chicken Scratch</h1>
 
-<h2>Cats that are not sleepy!</h2>
+    <h2>Create...Collaborate...Enjoy</h2>
 
-<ul>
-  {{#each cats}}
-    {{#unless this.sleepy}}
-      <li>
-        {{this.name}}
 
-        <form action="/{{this.id}}?_method=PUT" method="POST">
-          <input type="hidden" name="sleepy" value="true">
-          <button type="submit">SLEEP TIME!</button>
-        </form>
+    <div class="well well-lg">
+        <div class="panel">
+            <div class="panel panel-header">
+                {{stories.title}}
+            </div>
+            <div class="panel panel-body">
+                {{stories.blurb}}
+                <button type="submitStory button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+  contribute to story</button>
+                <div class="panel panel-body">cover art
+                    <button type="submitArt button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">add cover art</button>
+                </div>
 
-        {{> cats/delete-cat}}
-      </li>
-    {{/unless}}
-  {{/each}}
-</ul>
+                <div class="panel-footer">contributer count</div>
+            </div>
+        </div>
+    </div>
 
-<h2>Cats that are sleepy!</h2>
+    <!--launches modal when user clicks "add to story"-->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Add to the story...</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
 
-<ul>
-  {{#each cats}}
-    {{#if this.sleepy}}
-      <li>
-        {{this.name}}
+                            <form role="form">
+                                <div class="form-group">
+                                    <label for="">Your Contribution</label>
+                                    <input id="textbox" type="text" class="form-control" id="story_text">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <!--alert? are you sure you want to close without saving?-->
 
-        <form action="/{{this.id}}?_method=PUT" method="POST">
-          <input type="hidden" name="sleepy" value="false">
-          <button type="submit">WAKE UP!</button>
-        </form>
 
-        {{> cats/delete-cat}}
-      </li>
-    {{/if}}
-  {{/each}}
-</ul>
+                    <!--need to makes sure save button saves to the database-->
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<h2>Add a Cat</h2>
-<form class="create-update-form" action="/" method="POST">
+    <!--launches modal for cover art-->
+    <div class="modal fade" id="artModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Add cover art...</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
 
-  <div class="form-group">
-    <label for="ca">Cat Name:</label>
-    <input type="text" id="ca" name="name">
-  </div>
+                            <form role="form">
 
-  <div class="form-group">
-    <label for="slee">Sleepy?</label><br>
-    <input type="radio" name="sleepy" value="1" checked> Sleepy!<br>
-    <input type="radio" name="sleepy" value="0"> Awake
-  </div>
+                                <div class="form-group">
+                                    <label for="">Add your art...</label>
+                                    <form action="myform.cgi"> <input type="file" name="fileupload" value="fileupload" id="fileupload"> <label for="fileupload"> Select a file to upload</label> <input type="submit" value="submit"> </form>
+                                    <input type="text" class="form-control" id="story_text">
+                                </div>
 
-  <button type="submit">Add Cat</button>
-</form>
+
+
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <!--alert? are you sure you want to close without saving?-->
+
+
+                    <!--need to makes sure save button saves to the database-->
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        //launches modal//
+        $(".submitStory").on("click", function() {
+            $('#myModal').on('shown.bs.modal', function() {
+                $('#myInput').focus()
+            });
+
+        });
+
+        $(".submitArt").on("click", function() {
+            $('#artModal').on('shown.bs.modal', function() {
+                $('#myInput').focus()
+            });
+
+        });
+    </script>

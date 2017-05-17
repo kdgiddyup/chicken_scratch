@@ -32,8 +32,8 @@ module.exports = function(app){
             }
         }).then(function(results) {
             res.render("index", {user: results})
-        })
-    })
+        });
+    });
 
     //CREATE USER
     app.post("/", function(req, res) {
@@ -43,6 +43,16 @@ module.exports = function(app){
       }).then(function(results) {
         res.redirect("/");
       });
+    });
+
+    //CREATE STORY
+    app.post("/api/new/story", function(req, res) {
+        db.Story.create({
+            title: req.body.title,
+            blurb: req.body.blurb
+        }).then(function(results) {
+            res.redirect("/");
+        });
     });
 
     //CREATE CONTRIBUTION

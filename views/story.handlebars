@@ -7,11 +7,13 @@
                 <div class="row contribution_wrapper">
                     <div class="col-lg-2 metadata" data-id="{{this.user.id}}">
                         {{this.users.username}} 
-                        <button type="button" class="submitArt btn btn-primary" data-toggle="modal" data-target="#artModal" data-contribution-id ="{{this.contributions.id}}">Contribute Art</button>
+                        <button type="button" class="submitArt btn btn-secondary btn-sm" data-toggle="modal" data-target="#artModal" data-contribution-id ="{{this.contributions.id}}">Contribute Art</button>
                     </div><!-- end metadata column-->
-                    <div class="col-lg-10 contribution" data-contribution="{{this.id}}">
-                        {{this.contribution_text}}
-                    </div><!-- end contribution column -->  
+                    <div class="panel panel-default">
+                        <div class="panel-body col-lg-10 contribution" data-contribution="{{this.id}}">
+                            {{this.contribution_text}}
+                        </div><!-- end contribution column --> 
+                    </div> 
                 </div> <!-- end contribution row -->
             {{/each}}
 
@@ -36,7 +38,7 @@
                     <div class="panel panel-default">
                         <div class="panel-body">
 
-                            <form role="form" action="/api/new/contribution/{{this.id}}" method="POST">
+                            <form role="form" action="/api/new/contribution/{{this.stories.id}}" method="POST">
                                 <div class="form-group">
                                     <label for="">Your Contribution</label>
                                     <textarea name="contribution_text" type="text" rows="5" class="form-control" id="story_text"></textarea>

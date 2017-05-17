@@ -2,12 +2,14 @@ var express = require("express");
 var methodOverride = require("method-override");
 var bodyParser = require("body-parser");
 var exphbs = require("express-handlebars");
+var fs = require('fs');
 
 // for aws storage, require the aws sdk
 var AWS = require('aws-sdk');
 var s3 = new AWS.S3();
 
-
+// For dev purposes only
+AWS.config.update({ accessKeyId: process.env.AWS_ACCESS_KEY_ID, secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY });
 
 var db = require("./models");
 

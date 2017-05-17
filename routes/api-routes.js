@@ -60,3 +60,34 @@ module.exports = function(app){
         })
     });
 };
+
+// upload art; id param here is contribution id 
+    app.put("/new/art:id", function(req,res){
+        // upload image to AWS
+
+            
+            // Read in the file, convert it to base64, store to S3
+            fs.readFile(req.body.filePath, function (err, data) {
+            if (err) { throw err; }
+
+            var base64data = new Buffer(data, 'binary');
+
+            var s3 = new AWS.S3();
+            s3.client.putObject({
+                Bucket: process.env.S3_BUCKET,
+                Key: req.body.filePath,
+                Body: base64data,
+                ACL: 'public-read'
+            },function (resp) {
+                console.log(arguments);
+                console.log('Successfully uploaded package.');
+            });
+
+            });
+
+
+        
+        db.Art.update({
+            art_file: req.body.art_file 
+        })
+    })

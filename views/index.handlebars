@@ -1,71 +1,56 @@
-<div class="container" style="left: 0px;">
-        <section id="content">
-            <header>
-
-                <div id="preamble" class="home">
-                    <div class="preamble">
-                        <h1>
-                            Chicken Scratch</h1>
-                        <p class="em" style="display: none;">
-                            Create...Collaborate...Enjoy
-                            <br> Chicken Scratch was created as a place where everyone can contribute to a story. <br> Take a look around and let creativity strike!</p>
-                        <a class="read-more" href="#">Read more +</a></div>
-                    <p>
-                    </p>
-
-                </div>
-            </header>
-            <div id="blurb">
-                <ul>
-                    <li>
-                        <!--A way to link the existing cover art, if any {{ art? }}-->
-                        <a href=""><img src="" alt="">
-
-                            <div class="overlay">
-                                <summary>
-                                    <h2>{{stories.title}}</h2>
-                                    <h3>{{stories.blurb}}</h3>
-                                </summary>
-                                <div class="contributionCount"><span>Contributions</span></div>
-                            </div>
-                        </a>
-                    </li>
-
-                </ul>
+<div class="jumbotron">
+<h1>Storyboard</h1>
+    <h2>Create...Collaborate...Enjoy</h2>
+    <br>
+    <button id="newStory" class="btn btn-primary btn-lg center-block">Create new story</button>
+</div>
+    {{#each this.id}}
+    <div class="well well-lg">
+        <div class="panel">
+            <div class="panel panel-header">
+                <h2>{{this.title}}</h2>
             </div>
-        </section>
-
-        <footer id="ftr">
-            <div class="wrapper">
-                <ul id="social">
-                    <li>
-                        <a href="#">Twitter.</a>
-                    </li>
-                    <li>
-                        <a href="#">Facebook.</a>
-                    </li>
-
-                </ul>
-
-                <div id="team">
-                    <span>Frantic Chickens <br>2017
-                    </span>
-                </div>
-
+            <div class="panel panel-body">
+                <p>{{this.blurb}}</p>
+                <button type="submitStory button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">View Full Story</button>
+                <div class="panel-footer">Contributer Count</div>
             </div>
-            <!-- wrapper -->
-        </footer>
-        <!-- footer -->
+        </div>
     </div>
-    <!-- container -->
+    {{/each}}
 
-    <script src="ajax/jquery-1.11.0.min.js"></script>
-    <script src="site.js"></script>
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+  
 
-    <script>
-        $(document).ready(function() {
-            ReadMore.init();
-        })
-    </script>
+    <!--launches modal when user clicks "create story"-->
+    <div class="modal fade" id="startStoryModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Add to the story...</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+
+                            <form role="form">
+                                <div class="form-group">
+                                    <label for="">Your Contribution</label>
+                                    <input id="textbox" type="text" class="form-control" id="story_text">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <!--alert? are you sure you want to close without saving?-->
+
+
+                    <!--need to makes sure save button saves to the database-->
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    

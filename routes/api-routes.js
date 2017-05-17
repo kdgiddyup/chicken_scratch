@@ -7,24 +7,36 @@ module.exports = function(app){
         db.Story.findAll({
             include: [db.Contribution,db.Art]
         }).then(function(results) {
-        res.render("index", {stories:results});
-        });
-    })
-
-    //GET ALL CONTRIBUTIONS FOR EACH STORY AND USER ASSOCIATED WITH EACH CONTRIBUTION
-    app.get("/api/:id", function(req, res) {
-        db.Contribution.findOne({
-            where: {
-                id: req.params.id
-            },
-            include: [db.User, db.Contribution, db.Art]
-        }).then(function(data) {
-            res.render("project", data);
+            res.render("index", {stories: results});
         });
     });
 
+    //GET ALL CONTRIBUTIONS FOR EACH STORY AND USER ASSOCIATED WITH EACH CONTRIBUTION
+    app.get("/story/:id", function(req, res) {
+        db.Contribution.findAll({
+            where: {
+                StoryId: req.params.id
+            },
+            include: [db.Story]
+        }).then(function(data) {
+            res.render("story", {contributions: data});
+        });
+    });
+
+    //SEARCH USER
+    app.get("/", function(req, res) {
+        db.User.findOne({
+            where: {
+                username: req.body.username,
+                password: req.body.password
+            }
+        }).then(function(results) {
+            res.render("index", {user: results})
+        })
+    })
+
     //CREATE USER
-    app.post("/api/new/users", function(req, res) {
+    app.post("/", function(req, res) {
       db.User.create({
         username: req.body.username,
         password: req.body.password
@@ -34,29 +46,31 @@ module.exports = function(app){
     });
 
     //CREATE CONTRIBUTION
-    app.post("/api/new/contribution", function(req, res) {
+    app.post("/api/new/contribution/:id", function(req, res) {
       db.Contribution.create({
-        contribution_text: req.body.contribution_text
+        contribution_text: req.body.contribution_text,
+        UserId: req.params.id,
+        StoryId: req.params.id
       }).then(function(results) {
         res.redirect("/");
       });
     });
 
     //ADD RANK
-    app.put("/:id", function(req, res) {
-        db.Contribution.update({
-            rank: req.body.rank
-        }).then(function(results) {
-            res.redirect("/");
-        });
-    });
+    // app.put("/:id", function(req, res) {
+    //     db.Contribution.update({
+    //         rank: req.body.rank
+    //     }).then(function(results) {
+    //         res.redirect("/");
+    //     });
+    // });
 
-    //ADD RANK
-    app.put("/:id", function(req, res) {
-        db.Art.update({
-            rank: req.body.rank
-        }).then(function(results) {
-            res.redirect("/");
-        })
-    });
+    // //ADD RANK
+    // app.put("/:id", function(req, res) {
+    //     db.Art.update({
+    //         rank: req.body.rank
+    //     }).then(function(results) {
+    //         res.redirect("/");
+    //     })
+    //});
 };

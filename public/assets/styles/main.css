@@ -1,12 +1,12 @@
 .fade.in {
-    opacity: 2;
-}
-
-#textbox {
-    height: 200px;
-    overflow: auto
+    background-color: rgba(0, 0 , 0, .6);
 }
 
 h1, h2, h3 {
     text-align: center;
+}
+
+.contribution_wrapper {
+    background-color: lightslategray;
+    padding: 40px;
 }

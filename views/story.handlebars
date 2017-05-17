@@ -7,53 +7,49 @@
                 <div class="row contribution_wrapper">
                     <div class="col-lg-2 metadata" data-id="{{this.user.id}}">
                         {{this.users.username}} 
-                        <button type="button" class="submitArt btn btn-primary btn-lg" data-toggle="modal" data-target="#artModal" data-contribution-id ="{{this.contributions.id}}">contribute art</button>
+                        <button type="button" class="submitArt btn btn-secondary btn-sm" data-toggle="modal" data-target="#artModal" data-contribution-id ="{{this.contributions.id}}">Contribute Art</button>
                     </div><!-- end metadata column-->
-                    <div class="col-lg-10 contribution" data-contribution="{{this.contributions.id}}">
-                        {{this.contributions.contributions_text}}
-                    </div><!-- end contribution column -->  
+                    <div class="panel panel-default">
+                        <div class="panel-body col-lg-10 contribution" data-contribution="{{this.id}}">
+                            {{this.contribution_text}}
+                        </div><!-- end contribution column --> 
+                    </div> 
                 </div> <!-- end contribution row -->
-                <div class="row">
-                    <button type="button" class="submitStory btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-    contribute to story</button>
-                </div> <!-- end contribute button row-->
             {{/each}}
 
         </div><!-- end story column-->
 
    </div> <!-- end story page row -->
-
+   <br>
+   <br>
+    <button type="button" class="submitStory btn btn-primary center-block" data-toggle="modal" data-target="#contributeModal">Contribute to Story</button>
 </div><!-- end container -->
 
 
 <!--launches modal when user clicks "add to story"-->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal fade" id="contributeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Add to the story...</h4>
+                    <h4 class="modal-title" id="myModalLabel">Contribute to the Story</h4>
                 </div>
                 <div class="modal-body">
                     <div class="panel panel-default">
                         <div class="panel-body">
 
-                            <form role="form">
+                            <form role="form" action="/api/new/contribution/{{this.stories.id}}" method="POST">
                                 <div class="form-group">
                                     <label for="">Your Contribution</label>
-                                    <input id="textbox" type="text" class="form-control" id="story_text">
+                                    <textarea name="contribution_text" type="text" rows="5" class="form-control" id="story_text"></textarea>
+                                </div>
+                                <div class="btn-toolbar">
+                                    <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary pull-right">Save changes</button>
                                 </div>
                             </form>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <!--alert? are you sure you want to close without saving?-->
-
-
-                    <!--need to makes sure save button saves to the database-->
-                    <button type="button" class="btn btn-primary">Save changes</button>
                 </div>
             </div>
         </div>
@@ -61,47 +57,34 @@
 
 <!--launches modal for cover art-->
     <div class="modal fade" id="artModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Add cover art...</h4>
+                    <h4 class="modal-title" id="myModalLabel">Add Cover Art</h4>
                 </div>
                 <div class="modal-body">
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            <form role="form">
+
+                            <form role="form" action="/" method="POST">
                                 <div class="form-group">
-                                    <label for="">Add your art...</label>
-                                    <form action="myform.cgi"> <input type="file" name="fileupload" value="fileupload" id="fileupload"> <label for="fileupload"> Select a file to upload</label> <input type="submit" value="submit"> </form>
+                                    <label for="">Add Your Art</label>
+                                    <form action="myform.cgi">
+                                        <input type="file" name="fileupload" value="fileupload" id="fileupload"> 
+                                        <label for="fileupload"> Select a file to upload</label> 
+                                        <input type="submit" value="submit"> 
+                                    </form>
                                     <input type="text" class="form-control" id="story_text">
+                                </div>
+                                <div class="btn-toolbar">
+                                    <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary pull-right">Save changes</button>
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <!--alert? are you sure you want to close without saving?-->
-
-
-                    <!--need to makes sure save button saves to the database-->
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
             </div>
         </div>
     </div>
-
-    <script type="text/javascript">
-    //launches modal//
-    $(".submitStory").on("click", function() {
-        $('#myModal').on('shown.bs.modal', function() {
-            $('#myInput').focus()
-        });
-    });
-    $(".submitArt").on("click", function() {
-        $('#artModal').on('shown.bs.modal', function() {
-            $('#myInput').focus()
-        });
-    });
-</script>

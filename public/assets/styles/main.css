@@ -1,9 +1,9 @@
 .fade.in {
-    opacity: 2;
+    background: rgba(0,0,0,.6);
 }
 
 #textbox {
-    height: 200px;
+    height: 100px;
     overflow: auto
 }
 

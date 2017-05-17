@@ -4,8 +4,9 @@ module.exports = function(app){
 
     //GET ALL STORIES AND BLURBS AND ART AND CONTRIBUTIONS FOR COUNT. THE USER ASSOCIATED WITH THE FIRST CONTRIBUTION.
     app.get("/", function(req, res) {
-        db.Story.findAll({}).then(function(results) {
-        console.log(results);
+        db.Story.findAll({
+            include: [db.Contribution,db.Art]
+        }).then(function(results) {
         res.render("index", {stories:results});
         });
     })

@@ -11,9 +11,14 @@ module.exports = function(sequelize, DataTypes) {
           foreignKey: {
             allowNull: false
           }
+        })
+        Contribution.belongsTo(models.User, {
+          foreignKey: {
+            allowNull: false
+          }
         });
       }
-    }
+  }
   });
   return Contribution;
 };

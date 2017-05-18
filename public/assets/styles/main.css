@@ -1,8 +1,84 @@
-.fade.in {
-    opacity: 2;
-}
-
-#textbox {
-    height: 200px;
-    text-overflow:
-}
+    .fade.in {
+        background-image: url(media/1.jpg);
+        padding: 200px;
+        -webkit-box-sizing: content-box;
+        -moz-box-sizing: content-box;
+        box-sizing: content-box;
+        position: absolute;
+        top: -200px;
+        left: -200px;
+        width: 100%;
+        height: 100%;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        background-size: cover;
+        background-position: center center;
+    }
+    
+    body {
+        background-color: #2B2C30;
+        font-family: 'Quicksand', sans-serif;
+        line-height: 1.5;
+    }
+    
+    .container {
+        color: white;
+    }
+    
+    h1,
+    h2,
+    h3 {
+        text-align: center;
+        color: #ddd;
+    }
+    
+    .container {
+        color: white;
+    }
+    
+    .contribution_wrapper {
+        background-color: #2B2C30;
+        padding: 40px;
+    }
+    
+    .coverart {
+        width: 100%;
+    }
+    
+    #home {
+        background-image: url(media/1.jpg);
+        padding: 200px;
+        -webkit-box-sizing: content-box;
+        -moz-box-sizing: content-box;
+        box-sizing: content-box;
+        position: absolute;
+        top: -200px;
+        left: -200px;
+        width: 100%;
+        height: 100%;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        background-size: cover;
+        background-position: center center;
+    }
+    
+    .modal-content {
+        background-color: lightgray;
+    }
+    
+    .jumbotron {
+        background-image: url(media/5.jpeg);
+        -webkit-box-sizing: content-box;
+        -moz-box-sizing: content-box;
+        box-sizing: content-box;
+        width: 100%;
+        height: 100%;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        background-size: cover;
+        background-position: center center;
+    }
+    
+    button {
+        background-color: red;
+    }

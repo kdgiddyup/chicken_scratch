@@ -1,111 +1,136 @@
-<h1>Chicken Scratch</h1>
 
-    <h2>Create...Collaborate...Enjoy</h2>
-
-
-    <div class="well well-lg">
-        <div class="panel">
-            <div class="panel panel-header">
-                {{stories.title}}
+    <div class="jumbotron">
+        <div class="container">
+            <div class="btn-toolbar">
+                <button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#signInModal">Sign In</button>
+                <button type="button" class="btn btn-warning pull-right" data-toggle="modal" data-target="#signUpModal">Sign Up</button>
             </div>
-            <div class="panel panel-body">
-                {{stories.blurb}}
-                <button type="submitStory button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-  contribute to story</button>
-                <div class="panel panel-body">cover art
-                    <button type="submitArt button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">add cover art</button>
-                </div>
+        </div>
+        <h1>chicken_scratch</h1>
+        <h2>create ... collaborate ... enjoy</h2>
 
-                <div class="panel-footer">contributer count</div>
+        <p>{{user.user.username}}</p>
+        <br>
+        <button type="button" class="btn btn-primary btn-lg center-block" data-toggle="modal" data-target="#startStoryModal">Start your own story</button>
+    </div>
+
+
+
+    {{#each this.stories}}
+    <div class="container">
+        <div class="well well-lg">
+            <div class="panel">
+                <div class="panel panel-header">
+                    <h2>{{this.title}}</h2>
+                </div>
+                <div class="panel panel-body">
+                    <p><img src="{{this.cover_art}}" width="50%" /> {{this.blurb}}</p>
+                    <br>
+                    <a href="/story/{{this.id}}">
+                        <button id="viewStory" type="submitStory button" class="btn btn-primary center-block" data-toggle="modal" data-target="#myModal">View Full Story</button>
+                    </a>
+                    <br>
+
+                    <div class="panel-footer">Contributer Count:
+                        <p></p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+    {{/each}}
 
-    <!--launches modal when user clicks "add to story"-->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <!--launches modal when user clicks "create story"-->
+    <div class="modal fade" id="startStoryModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Add to the story...</h4>
+                    <h4 class="modal-title" id="myModalLabel">Create a Story</h4>
                 </div>
                 <div class="modal-body">
                     <div class="panel panel-default">
                         <div class="panel-body">
 
-                            <form role="form">
+                            <form role="form" action="/api/new/story" method="POST">
                                 <div class="form-group">
-                                    <label for="">Your Contribution</label>
-                                    <input id="textbox" type="text" class="form-control" id="story_text">
+                                    <label>Story Title</label>
+                                    <input name="title" type="text" class="form-control" id="story_title"></input>
+                                    <label>Blurb</label>
+                                    <textarea name="blurb" type="text" class="form-control" rows="5" id="story_blurb"></textarea>
+                                    <label>Your Contribution</label>
+                                    <textarea name="contribution" type="text" class="form-control" rows="5" id="story_contribution"></textarea>
+                                </div>
+                                <div class="btn-toolbar">
+                                    <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary pull-right">Save changes</button>
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <!--alert? are you sure you want to close without saving?-->
-
-
-                    <!--need to makes sure save button saves to the database-->
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
             </div>
         </div>
     </div>
 
-    <!--launches modal for cover art-->
-    <div class="modal fade" id="artModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
+    <!--launches modal when user clicks "sign in"-->
+    <div class="modal fade" id="signInModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Add cover art...</h4>
+                    <h4 class="modal-title" id="myModalLabel">Sign In</h4>
                 </div>
                 <div class="modal-body">
                     <div class="panel panel-default">
                         <div class="panel-body">
 
-                            <form role="form">
-
+                            <form role="form" action="/" method="GET">
                                 <div class="form-group">
-                                    <label for="">Add your art...</label>
-                                    <form action="myform.cgi"> <input type="file" name="fileupload" value="fileupload" id="fileupload"> <label for="fileupload"> Select a file to upload</label> <input type="submit" value="submit"> </form>
-                                    <input type="text" class="form-control" id="story_text">
+                                    <label>Username</label>
+                                    <input name="username" type="text" class="form-control" id="signInUsername">
+                                    <label>Password</label>
+                                    <input name="password" type="text" class="form-control" id="signInPassword">
                                 </div>
-
-
-
+                                <div class="btn-toolbar">
+                                    <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary pull-right">Sign In</button>
+                                </div>
                             </form>
-
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <!--alert? are you sure you want to close without saving?-->
-
-
-                    <!--need to makes sure save button saves to the database-->
-                    <button type="button" class="btn btn-primary">Save changes</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <script type="text/javascript">
-        //launches modal//
-        $(".submitStory").on("click", function() {
-            $('#myModal').on('shown.bs.modal', function() {
-                $('#myInput').focus()
-            });
+    <!--launches modal when user clicks "sign up"-->
+    <div class="modal fade" id="signUpModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Sign Up</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
 
-        });
-
-        $(".submitArt").on("click", function() {
-            $('#artModal').on('shown.bs.modal', function() {
-                $('#myInput').focus()
-            });
-
-        });
-    </script>
+                            <form role="form" action="/" method="POST">
+                                <div class="form-group">
+                                    <label>Username</label>
+                                    <input name="username" type="text" class="form-control" id="signUpUsername">
+                                    <label>Password</label>
+                                    <input name="password" type="text" class="form-control" id="signUpPassword">
+                                </div>
+                                <div class="btn-toolbar">
+                                    <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary pull-right">Sign Up</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

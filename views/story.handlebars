@@ -12,7 +12,7 @@
                     <div class="panel panel-default">
                         <div class="panel-body col-lg-10 contribution" data-contribution="{{this.id}}">
                             {{this.contribution_text}}
-                             <button type="button" class="submitArt btn btn-secondary btn-sm" data-toggle="modal" data-target="#artModal" data-contribution-id ="{{this.id}}">Contribute Art</button>
+                             <button type="button" class="submitArt btn btn-secondary btn-sm" data-toggle="modal" data-target="#artModal" data-contribution-id="{{this.id}}">Contribute Art</button>
                         </div><!-- end contribution column --> 
                     </div> 
                 </div> <!-- end contribution row -->
@@ -23,7 +23,7 @@
    </div> <!-- end story page row -->
    <br>
    <br>
-    <button type="button" class="submitStory btn btn-primary center-block" data-toggle="modal" data-target="#contributeModal">Continute the story...</button>
+    <button type="button" class="submitStory btn btn-primary center-block" data-toggle="modal" data-target="#contributeModal">Continue the story...</button>
 </div><!-- end container -->
 
 
@@ -67,8 +67,8 @@
                 <div class="modal-body">
                     <div class="panel panel-default">
                         <div class="panel-body">
-
-                            <form role="form" action="/api/new/art{{this.contributions.id}}" method="POST">
+                            <!-- the click function on the button that launches this modal window will append the contribution id to the action route -->
+                            <form id="artUploadForm" role="form" method="POST" enctype="multipart/form-data">
                                 <div class="form-group">
 
                                     <label for="">Add your art...</label>
@@ -78,7 +78,6 @@
                                 </div>
                                 <div class="btn-toolbar">
                                     <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary pull-right">Save changes</button>
                                 </div>
                             </form>
                         </div>
@@ -87,3 +86,10 @@
             </div>
         </div>
     </div>
+
+    <script>
+        // pass contribution ID to art upload form on click
+        $(".submitArt").on("click",function(){
+            $("#artUploadForm").attr("action","/api/new/art/"+$(this).attr("data-contribution-id"));
+        })
+        </script>

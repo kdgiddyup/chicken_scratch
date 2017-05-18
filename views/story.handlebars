@@ -1,15 +1,17 @@
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-xs-12">
-            <img src="{{this.contributions.0.Story.cover_art}}" class="coverart"/>
-            <h2 class="title">{{this.contributions.0.Story.title}}</h2>
-            {{#each this.contributions}}
-                <div class="row contribution_wrapper">
-                     <div class="panel panel-default">
-                           <div class="panel-body col-lg-12 col-md-12 col-sm-12 contribution" data-contribution-id="{{this.id}}">
+   <section id="home">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-xs-12">
+                    <img src="{{this.contributions.0.Story.cover_art}}" class="coverart" />
+                    <h2 class="title">{{this.contributions.0.Story.title}}</h2>
+                    {{#each this.contributions}}
+                    <div class="row contribution_wrapper">
+                        <div class="panel panel-default">
+                            <div class="panel-body col-lg-12 col-md-12 col-sm-12 contribution" data-contribution-id="{{this.id}}">
                                 <div class="row">
                                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                        <button type="button" class="submitArt btn btn-secondary btn-sm" data-toggle="modal" data-target="#artModal" data-contribution-id ="{{this.id}}">Contribute Art</button>
+                                        <button type="button" class="submitArt btn btn-secondary btn-sm" data-toggle="modal" data-target="#artModal" data-contribution-id="{{this.id}}">Contribute Art</button>
                                     </div>
                                     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                                         <p>{{this.contribution_text}}</p>
@@ -18,20 +20,27 @@
                                         <p>{{this.User.username}}</p>
                                     </div>
                                 </div>
-                            </div><!-- end contribution column --> 
-                      </div>
-                </div> <!-- end contribution row -->
-            {{/each}}
-        </div><!-- end story column-->
-   </div> <!-- end story page row -->
-   <br>
-   <br>
-  <button type="button" class="submitStory btn btn-primary center-block" data-toggle="modal" data-target="#contributeModal" data-id="{{this.StoryId}}">Contribute to Story</button>
+                            </div>
+                            <!-- end contribution column -->
+                        </div>
+                    </div>
+                    <!-- end contribution row -->
+                    {{/each}}
+                </div>
+                <!-- end story column-->
+            </div>
+            <!-- end story page row -->
+            <br>
+            <br>
+            <button type="button" class="submitStory btn btn-primary center-block" data-toggle="modal" data-target="#contributeModal" data-id="{{this.StoryId}}">Contribute to Story</button>
 
-</div><!-- end container -->
+        </div>
+        <!-- end container -->
+
+    </section>
 
 
-<!--launches modal when user clicks "add to story"-->
+    <!--launches modal when user clicks "add to story"-->
     <div class="modal fade" id="contributeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
@@ -46,7 +55,7 @@
                             <form role="form" action="/api/new/contribution/{{this.stories.id}}" method="POST">
                                 <div class="form-group">
                                     <label for="">Your Contribution</label>
-                                    <textarea name="contribution_text" type="text" rows="5" class="form-control" id="story_text"></textarea>
+                                    <textarea name="contribution_text" type="text" rows="15" class="form-control" id="story_text"></textarea>
                                 </div>
                                 <div class="btn-toolbar">
                                     <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
@@ -60,7 +69,7 @@
         </div>
     </div>
 
-<!--launches modal for cover art-->
+    <!--launches modal for cover art-->
     <div class="modal fade" id="artModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
@@ -76,9 +85,9 @@
                                 <div class="form-group">
                                     <label for="">Add Your Art</label>
                                     <form action="myform.cgi">
-                                        <input type="file" name="fileupload" value="fileupload" id="fileupload"> 
-                                        <label for="fileupload"> Select a file to upload</label> 
-                                        <input type="submit" value="submit"> 
+                                        <input type="file" name="fileupload" value="fileupload" id="fileupload">
+                                        <label for="fileupload"> Select a file to upload</label>
+                                        <input type="submit" value="submit">
                                     </form>
                                     <input type="text" class="form-control" id="story_text">
                                 </div>

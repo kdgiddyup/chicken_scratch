@@ -5,8 +5,8 @@
             <h2 class="title">{{this.contributions.0.Story.title}}</h2>
             {{#each this.contributions}}
                 <div class="row contribution_wrapper">
-                    <div class="col-lg-2 metadata" data-id="{{this.user.id}}">
-                        {{this.users.username}} 
+                    <div class="col-lg-2 metadata" data-id="{{this.contributions.UserId}}">
+                        {{this.contributions.username}} 
                        
                     </div><!-- end metadata column-->
                     <div class="panel panel-default">
@@ -39,7 +39,7 @@
                     <div class="panel panel-default">
                         <div class="panel-body">
 
-                            <form role="form" action="/api/new/contribution/{{this.stories.id}}" method="POST">
+                            <form role="form" action="/api/new/contribution/{{this.contributions.0.Story.id}}" method="POST">
                                 <div class="form-group">
                                     <label for="">Your Contribution</label>
                                     <textarea name="contribution_text" type="text" rows="5" class="form-control" id="story_text"></textarea>
@@ -68,12 +68,13 @@
                     <div class="panel panel-default">
                         <div class="panel-body">
 
-                            <form role="form" action="/" method="POST">
+                            <form role="form" action="/api/new/art{{this.contributions.id}}" method="POST">
                                 <div class="form-group">
 
                                     <label for="">Add your art...</label>
-                                    <form action="/new/art/{{this.id}}" method="POST"> <input type="file" name="fileupload" value="fileupload" id="fileupload"> <label for="fileupload"> Select a file to upload</label> <input type="submit" value="submit"> </form>
-                                    <input type="text" class="form-control" id="story_text">
+                                    <input type="file" name="fileupload" value="fileupload" id="fileupload"> 
+                                    <label for="fileupload"> Select a file to upload</label> 
+                                    <input type="submit" value="submit"> 
                                 </div>
                                 <div class="btn-toolbar">
                                     <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>

@@ -60,7 +60,7 @@ module.exports = function(app){
     app.post("/api/new/contribution/:id", function(req, res) {
       db.Contribution.create({
         contribution_text: req.body.contribution_text,
-        UserId: req.params.id,
+        UserId: req.body.userId,
         StoryId: req.params.id
       }).then(function(results) {
         res.redirect("/");
@@ -87,7 +87,7 @@ module.exports = function(app){
 };
 
 // upload art; id param here is contribution id 
-    app.put("/new/art:id", function(req,res){
+    app.post("/api/new/art:id", function(req,res){
         // upload image to AWS
 
             
@@ -112,7 +112,7 @@ module.exports = function(app){
 
 
         
-        db.Art.update({
+        db.Art.update({  // to do: add contribution and story id values
             art_file: req.body.art_file 
         })
     })

@@ -10,10 +10,15 @@
                        
                     </div><!-- end metadata column-->
                     <div class="panel panel-default">
+                        
+                      <!-- need to find a way to bring in art info and put conditional here: if art, render it and change column classes accordingly for contribution text -->
+                      
                         <div class="panel-body col-lg-10 contribution" data-contribution="{{this.id}}">
                             {{this.contribution_text}}
-                             <button type="button" class="submitArt btn btn-secondary btn-sm" data-toggle="modal" data-target="#artModal" data-contribution-id="{{this.id}}">Contribute Art</button>
+
+                             <button type="button" id="submitArt" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#artModal" data-story-id="{{this.StoryId}}" data-contribution-id="{{this.id}}">Contribute Art</button>
                         </div><!-- end contribution column --> 
+                    
                     </div> 
                 </div> <!-- end contribution row -->
             {{/each}}
@@ -56,7 +61,7 @@
         </div>
     </div>
 
-<!--launches modal for cover art-->
+<!--launches modal for art-->
     <div class="modal fade" id="artModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
@@ -68,9 +73,10 @@
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <!-- the click function on the button that launches this modal window will append the contribution id to the action route -->
-                            <form id="artUploadForm" role="form" method="POST" enctype="multipart/form-data">
+                            <form id="artUploadForm" action="/api/new/art" role="form" method="POST" enctype="multipart/form-data">
                                 <div class="form-group">
-
+                                    <input type="hidden" name="StoryId" value="{{this.contributions.0.StoryId}}">
+                                    <input type="hidden" id="ContributionId" name="ContributionId">
                                     <label for="">Add your art...</label>
                                     <input type="file" name="fileupload" value="fileupload" id="fileupload"> 
                                     <label for="fileupload"> Select a file to upload</label> 
@@ -89,7 +95,15 @@
 
     <script>
         // pass contribution ID to art upload form on click
-        $(".submitArt").on("click",function(){
-            $("#artUploadForm").attr("action","/api/new/art/"+$(this).attr("data-contribution-id"));
-        })
-        </script>
+       $("#submitArt").on("click",function(){
+            $("#artUploadForm").attr("action","/api/new/art/");
+            // pass the contribution id from the art button to the form's hidden contributionId input 
+            $("#ContributionId").attr("value",$(this).attr("data-contribution-id"));
+            // ajax post to our art route
+            $.post("/api/new/art/", function(data){
+                console.log(data);
+                $("#fileupload").val("");
+                
+            });
+        });
+     </script>

@@ -105,7 +105,7 @@ module.exports = function(app){
                 StoryId: req.body.StoryId
             }).then(function(results) {
                 res.redirect("/story/"+req.body.StoryId)
-            })    
+            })
         });
     });
  

@@ -2,19 +2,15 @@ var express = require("express");
 var methodOverride = require("method-override");
 var bodyParser = require("body-parser");
 var exphbs = require("express-handlebars");
+var fs = require('fs');
 
-// for aws storage, require the aws sdk
-var AWS = require('aws-sdk');
-var s3 = new AWS.S3();
-
-
+var dotenv = require('dotenv');
+dotenv.load();
 
 var db = require("./models");
 
 var app = express();
 var PORT = process.env.NODE_ENV || 8080;
-
-
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

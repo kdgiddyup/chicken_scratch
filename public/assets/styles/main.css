@@ -1,5 +1,5 @@
     .fade.in {
-        background-image: url(media/1.jpg);
+        background-image: url(../media/1.jpg);
         padding: 200px;
         -webkit-box-sizing: content-box;
         -moz-box-sizing: content-box;
@@ -46,7 +46,7 @@
     }
     
     #home {
-        background-image: url(media/1.jpg);
+        background-image: url(../media/1.jpg);
         padding: 200px;
         -webkit-box-sizing: content-box;
         -moz-box-sizing: content-box;
@@ -67,7 +67,7 @@
     }
     
     .jumbotron {
-        background-image: url(media/5.jpeg);
+        background-image: url(../media/5.jpeg);
         -webkit-box-sizing: content-box;
         -moz-box-sizing: content-box;
         box-sizing: content-box;

@@ -1,17 +1,18 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-8 col-lg-offset-2 col-xs-12">
-            <img src="{{this.cover_art}}" class="coverart"/>
-            <h2 class="title">{{this.title}}</h2>
+            <img src="{{this.contributions.0.Story.cover_art}}" class="coverart"/>
+            <h2 class="title">{{this.contributions.0.Story.title}}</h2>
             {{#each this.contributions}}
                 <div class="row contribution_wrapper">
                     <div class="col-lg-2 metadata" data-id="{{this.user.id}}">
                         {{this.users.username}} 
-                        <button type="button" class="submitArt btn btn-secondary btn-sm" data-toggle="modal" data-target="#artModal" data-contribution-id ="{{this.contributions.id}}">Contribute Art</button>
+                       
                     </div><!-- end metadata column-->
                     <div class="panel panel-default">
                         <div class="panel-body col-lg-10 contribution" data-contribution="{{this.id}}">
                             {{this.contribution_text}}
+                             <button type="button" class="submitArt btn btn-secondary btn-sm" data-toggle="modal" data-target="#artModal" data-contribution-id ="{{this.id}}">Contribute Art</button>
                         </div><!-- end contribution column --> 
                     </div> 
                 </div> <!-- end contribution row -->
@@ -22,7 +23,7 @@
    </div> <!-- end story page row -->
    <br>
    <br>
-    <button type="button" class="submitStory btn btn-primary center-block" data-toggle="modal" data-target="#contributeModal">Contribute to Story</button>
+    <button type="button" class="submitStory btn btn-primary center-block" data-toggle="modal" data-target="#contributeModal">Continute the story...</button>
 </div><!-- end container -->
 
 

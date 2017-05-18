@@ -10,3 +10,6 @@ h1, h2, h3 {
     background-color: lightslategray;
     padding: 40px;
 }
+.coverart {
+    width: 100%;
+}

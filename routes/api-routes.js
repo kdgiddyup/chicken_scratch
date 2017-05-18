@@ -19,6 +19,7 @@ module.exports = function(app){
             },
             include: [db.Story]
         }).then(function(data) {
+              console.log(data);
             res.render("story", {contributions: data});
         });
     });

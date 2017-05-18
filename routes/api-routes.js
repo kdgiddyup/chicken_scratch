@@ -17,7 +17,7 @@ module.exports = function(app){
             where: {
                 StoryId: req.params.id
             },
-            include: [db.Story]
+            include: [db.Story, db.User]
         }).then(function(data) {
               console.log(data);
             res.render("story", {contributions: data});

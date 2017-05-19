@@ -16,6 +16,17 @@ var fsImpl = new S3FS(bucketPath, s3Options);
 
 
 
+// for aws storage, require the aws sdk
+    // var AWS = require('aws-sdk');
+    // var s3 = new AWS.S3();
+// For dev purposes only
+    // AWS.config.update({ accessKeyId: process.env.AWS_ACCESS_KEY_ID, secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY });
+
+    // var bucket = new AWS.S3({params: {Bucket: process.env.S3_BUCKET}});
+
+
+
+
 module.exports = function(app){
 
     //GET ALL STORIES AND BLURBS AND ART AND CONTRIBUTIONS FOR COUNT. THE USER ASSOCIATED WITH THE FIRST CONTRIBUTION.
@@ -83,7 +94,11 @@ module.exports = function(app){
       });
     });
 
+
+    // upload art; id param here is contribution id 
+=======
     // upload art
+
     app.post("/api/new/art", upload.single('fileupload'), function (req, res, next) {
     // req.file is the `fileupload` file 
     // req.body will hold the text fields, if there were any   

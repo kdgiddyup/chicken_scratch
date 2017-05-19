@@ -2,6 +2,7 @@
     "development": {
         "username": "root",
         "password": "SqlDatabaseRoot",
+
         "database": "chickenscratch_db",
         "host": "localhost",
         "dialect": "mysql"

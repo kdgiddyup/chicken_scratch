@@ -17,7 +17,9 @@
                         <div class="panel-body col-lg-10 contribution" data-contribution="{{this.id}}">
                             {{this.contribution_text}}
 
-                             <button type="button" id="submitArt" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#artModal" data-story-id="{{this.StoryId}}" data-contribution-id="{{this.id}}">Contribute Art</button>
+
+                             <button type="button" id="submitArt" class="btn btn-sm" data-toggle="modal" data-target="#artModal" data-story-id="{{this.StoryId}}" data-contribution-id="{{this.id}}">Contribute Art</button>
+
                         </div><!-- end contribution column --> 
                     
                     </div> 
@@ -27,7 +29,9 @@
    </div> <!-- end story page row -->
    <br>
    <br>
-    <button type="button" class="submitStory btn btn-primary center-block" data-toggle="modal" data-target="#contributeModal">Continue the story...</button>
+
+    <button type="button" class="submitStory btn center-block" data-toggle="modal" data-target="#contributeModal">Continue the story...</button>
+
 </div><!-- end container -->
 
 
@@ -50,8 +54,10 @@
                                     <textarea name="contribution_text" type="text" rows="15" class="form-control" id="story_text"></textarea>
                                 </div>
                                 <div class="btn-toolbar">
-                                    <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary pull-right">Save changes</button>
+
+                                    <button type="button" class="btn pull-right" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn pull-right">Save changes</button>
+
                                 </div>
                             </form>
                         </div>
@@ -74,7 +80,9 @@
                 <div class="modal-body">
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            
+
+                            <!-- the click function on the button that launches this modal window will append the contribution id to the action route -->
+
                             <form id="artUploadForm" action="/api/new/art" role="form" method="POST" enctype="multipart/form-data">
                                 <div class="form-group">
 
@@ -87,7 +95,10 @@
 
                                 </div>
                                 <div class="btn-toolbar">
-                                    <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+
+                                    <button type="button" class="btn pull-right" data-dismiss="modal">Close</button>
+=======
+
                                 </div>
                             </form>
                         </div>

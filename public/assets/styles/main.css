@@ -1,4 +1,6 @@
-    .fade.in {
+
+    .fade.in #contributeModal #artModal {
+
         background-image: url(../media/1.jpg);
         padding: 200px;
         -webkit-box-sizing: content-box;
@@ -42,7 +44,9 @@
     }
     
     .coverart {
-        width: 100%;
+
+        width: 50%;
+
     }
     
     #home {
@@ -81,4 +85,39 @@
     
     button {
         background-color: red;
+
+    }
+    /*index styling*/
+    
+    .story-panel {
+        color: #2B2C30;
+        font-family: 'Quicksand', sans-serif;
+        line-height: 1.5;
+        text-align: center;
+    }
+    
+    .slogan {
+        text-align: center;
+        color: #2B2C30;
+    }
+    
+    .btn {
+        background-color: #2B2C30;
+        color: #ddd;
+    }
+    
+    #title {
+        color: grey;
+    }
+    
+    #story_blurb {
+        font-size: 25px;
+    }
+    
+    .panel-footer {
+        font-size: 16px;
+        background-color: #2B2C30;
+        color: #ddd;
+
+
     }

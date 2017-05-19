@@ -1,4 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
+
     var Story = sequelize.define("Story", {
         title: DataTypes.STRING,
         blurb: DataTypes.STRING,

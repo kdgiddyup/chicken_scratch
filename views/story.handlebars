@@ -26,7 +26,13 @@
    </div> <!-- end story page row -->
    <br>
    <br>
-    <button type="button" class="submitStory btn btn-primary center-block" data-toggle="modal" data-target="#contributeModal">Continue the story...</button>
+
+    {{#if User}}
+        <button type="button" class="submitStory btn btn-primary center-block" data-toggle="modal" data-target="#contributeModal">Continue the story...</button>
+    {{else}}
+        <button type="button" class="submitStory btn btn-primary center-block">Please Sign In Before Contributing to Story</button>
+    {{/if}}
+
 </div><!-- end container -->
 
 
@@ -49,8 +55,10 @@
                                     <textarea name="contribution_text" type="text" rows="15" class="form-control" id="story_text"></textarea>
                                 </div>
                                 <div class="btn-toolbar">
-                                    <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary pull-right">Save changes</button>
+
+                                    <button type="button" class="btn pull-right" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn pull-right">Save changes</button>
+
                                 </div>
                             </form>
                         </div>
@@ -73,7 +81,9 @@
                 <div class="modal-body">
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            
+
+                            <!-- the click function on the button that launches this modal window will append the contribution id to the action route -->
+
                             <form id="artUploadForm" action="/api/new/art" role="form" method="POST" enctype="multipart/form-data">
                                 <div class="form-group">
 
@@ -86,7 +96,9 @@
 
                                 </div>
                                 <div class="btn-toolbar">
-                                    <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+
+                                    <button type="button" class="btn pull-right" data-dismiss="modal">Close</button>
+
                                 </div>
                             </form>
                         </div>
@@ -95,6 +107,7 @@
             </div>
         </div>
     </div>
+</section>
 
 
     <script>

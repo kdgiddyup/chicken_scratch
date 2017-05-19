@@ -96,7 +96,6 @@ module.exports = function(app){
 
 
     // upload art; id param here is contribution id 
-=======
     // upload art
 
     app.post("/api/new/art", upload.single('fileupload'), function (req, res, next) {

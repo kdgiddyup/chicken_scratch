@@ -1,4 +1,6 @@
+
     .fade.in #contributeModal #artModal {
+
         background-image: url(../media/1.jpg);
         padding: 200px;
         -webkit-box-sizing: content-box;
@@ -42,7 +44,9 @@
     }
     
     .coverart {
+
         width: 50%;
+
     }
     
     #home {
@@ -81,6 +85,7 @@
     
     button {
         background-color: red;
+
     }
     /*index styling*/
     
@@ -113,4 +118,6 @@
         font-size: 16px;
         background-color: #2B2C30;
         color: #ddd;
+
+
     }

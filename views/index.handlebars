@@ -1,4 +1,5 @@
 
+
     <div class="jumbotron">
         <div class="container">
             <div class="btn-toolbar">
@@ -12,6 +13,8 @@
         <p>{{user.user.username}}</p>
         <br>
         <button type="button" class="btn btn-lg center-block" data-toggle="modal" data-target="#startStoryModal">Start your own story</button>
+
+
     </div>
 
 
@@ -19,6 +22,7 @@
     {{#each this.stories}}
     <div class="container">
         <div class="well well-lg">
+
             <div class="story-panel panel">
                 <div class="panel panel-header">
                     <h2 id="title">{{this.title}}</h2>
@@ -28,6 +32,7 @@
                     <br>
                     <a href="/story/{{this.id}}">
                         <button id="viewStory" type="submitStory button" class="btn center-block" data-toggle="modal" data-target="#myModal">View Full Story</button>
+
                     </a>
                     <br>
 
@@ -62,8 +67,10 @@
                                     <textarea name="contribution" type="text" class="form-control" rows="5" id="story_contribution"></textarea>
                                 </div>
                                 <div class="btn-toolbar">
+
                                     <button type="button" class="btn pull-right" data-dismiss="modal">Close</button>
                                     <button type="submit" class="btn pull-right">Save changes</button>
+
                                 </div>
                             </form>
                         </div>
@@ -93,8 +100,10 @@
                                     <input name="password" type="text" class="form-control" id="signInPassword">
                                 </div>
                                 <div class="btn-toolbar">
+
                                     <button type="button" class="btn pull-right" data-dismiss="modal">Close</button>
                                     <button type="submit" class="btn pull-right">Sign In</button>
+
                                 </div>
                             </form>
                         </div>
@@ -124,8 +133,10 @@
                                     <input name="password" type="text" class="form-control" id="signUpPassword">
                                 </div>
                                 <div class="btn-toolbar">
+
                                     <button type="button" class="btn  pull-right" data-dismiss="modal">Close</button>
                                     <button type="submit" class="btn  pull-right">Sign Up</button>
+
                                 </div>
                             </form>
                         </div>

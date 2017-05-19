@@ -7,6 +7,7 @@ var fs = require('fs');
 var dotenv = require('dotenv');
 dotenv.load();
 
+
 var db = require("./models");
 
 var app = express();

@@ -6,28 +6,32 @@
             <h2 class="title">{{this.contributions.0.Story.title}}</h2>
             {{#each this.contributions}}
                 <div class="row contribution_wrapper">
-                    <div class="col-lg-2 metadata" data-id="{{this.contributions.UserId}}">
-                        {{this.contributions.username}} 
-                       
-                    </div><!-- end metadata column-->
-                    <div class="panel panel-default">
-                        
-                      <!-- need to find a way to bring in art info and put conditional here: if art, render it and change column classes accordingly for contribution text -->
-                      
-                        <div class="panel-body col-lg-10 contribution" data-contribution="{{this.id}}">
-                            {{this.contribution_text}}
-
-                             <button type="button" id="submitArt" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#artModal" data-story-id="{{this.StoryId}}" data-contribution-id="{{this.id}}">Contribute Art</button>
-                        </div><!-- end contribution column --> 
-                    
-                    </div> 
+                     <div class="panel panel-default">
+                           <div class="panel-body col-lg-12 col-md-12 col-sm-12 contribution" data-contribution-id="{{this.id}}">
+                                <div class="row">
+                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                        <button type="button" class="submitArt btn btn-secondary btn-sm" data-toggle="modal" data-target="#artModal" data-contribution-id ="{{this.id}}">Contribute Art</button>
+                                    </div>
+                                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                        <p>{{this.contribution_text}}</p>
+                                    </div>
+                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                        <p>{{this.User.username}}</p>
+                                    </div>
+                                </div>
+                            </div><!-- end contribution column --> 
+                      </div>
                 </div> <!-- end contribution row -->
             {{/each}}
         </div><!-- end story column-->
    </div> <!-- end story page row -->
    <br>
    <br>
-    <button type="button" class="submitStory btn btn-primary center-block" data-toggle="modal" data-target="#contributeModal">Continue the story...</button>
+    {{#if User}}
+        <button type="button" class="submitStory btn btn-primary center-block" data-toggle="modal" data-target="#contributeModal">Continue the story...</button>
+    {{else}}
+        <button type="button" class="submitStory btn btn-primary center-block">Please Sign In Before Contributing to Story</button>
+    {{/if}}
 </div><!-- end container -->
 
 

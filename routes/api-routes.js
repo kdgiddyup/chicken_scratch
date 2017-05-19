@@ -29,14 +29,13 @@ module.exports = function(app){
 
     //GET ALL CONTRIBUTIONS FOR EACH STORY AND USER ASSOCIATED WITH EACH CONTRIBUTION
     app.get("/story/:id", function(req, res) {
-        db.Contribution.findAll({
+        db.Story.findOne({
             where: {
-                StoryId: req.params.id
+                id: req.params.id
             },
-            include: [db.Story, db.User]
+            include: [db.Contribution, db.Art]
         }).then(function(data) {
-            console.log(data);
-            res.render("story", {contributions: data});
+            res.render("story", {story: data});
             });
         });
 
@@ -101,7 +100,16 @@ module.exports = function(app){
         });
     });
  
-        
+     app.get("/contributor/:id", function(req, res) {
+        db.User.findOne({
+            where: {
+                id: req.params.id
+            }
+        }).then(function(results) {
+     
+            res.json({name:results.username})
+        });
+    });    
 
    //ADD RANK
     // app.put("/:id", function(req, res) {

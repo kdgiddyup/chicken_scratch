@@ -2,12 +2,11 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-8 col-lg-offset-2 col-xs-12">
-            <img src="{{this.contributions.0.Story.cover_art}}" class="coverart"/>
-            <h2 class="title">{{this.contributions.0.Story.title}}</h2>
-            {{#each this.contributions}}
+            <img src="{{story.cover_art}}" class="coverart"/>
+            <h2 class="title">{{story.title}}</h2>
+            {{#each story.Contributions}}
                 <div class="row contribution_wrapper">
-                    <div class="col-lg-2 metadata" data-id="{{this.contributions.UserId}}">
-                        {{this.contributions.username}} 
+                    <div class="col-lg-2 metadata" data-id="{{this.UserId}}"> 
                        
                     </div><!-- end metadata column-->
                     <div class="panel panel-default">
@@ -111,4 +110,14 @@
                 
             });
         });
+
+    $(document).ready(function(){
+        var userIds = $(".metadata").attr("data-id");
+        for (i=0;i<userIds.length;i++){
+            $.get("/contributor/"+userIds[i],function(results){
+                $(this).html("<p>"+results.name+"</p>");
+                console.log(userIds);
+            })
+        }
+    }) 
      </script>

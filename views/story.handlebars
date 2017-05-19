@@ -2,7 +2,8 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-8 col-lg-offset-2 col-xs-12">
-            <img src="{{this.contributions.0.Story.cover_art}}" class="coverart"/>
+            <img src="{{this.contributions.0.Story.cover_art}}" class="coverArt"/>
+            
             <h2 class="title">{{this.contributions.0.Story.title}}</h2>
             {{#each this.contributions}}
                 <div class="row contribution_wrapper">
@@ -14,7 +15,8 @@
                         
                       <!-- need to find a way to bring in art info and put conditional here: if art, render it and change column classes accordingly for contribution text -->
                       
-                        <div class="panel-body col-lg-10 contribution" data-contribution="{{this.id}}">
+                        <div id="story_text" class="panel-body col-lg-10 contribution" data-contribution="{{this.id}}">
+                            
                             {{this.contribution_text}}
 
                              <button type="button" id="submitArt" class="btn btn-sm" data-toggle="modal" data-target="#artModal" data-story-id="{{this.StoryId}}" data-contribution-id="{{this.id}}">Contribute Art</button>
@@ -96,6 +98,7 @@
             </div>
         </div>
     </div>
+</section>
 
 
     <script>

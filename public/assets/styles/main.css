@@ -21,10 +21,6 @@
         line-height: 1.5;
     }
     
-    .container {
-        color: white;
-    }
-    
     h1,
     h2,
     h3 {
@@ -41,7 +37,7 @@
         padding: 40px;
     }
     
-    .coverart {
+    .coverArt {
         width: 50%;
     }
     
@@ -78,10 +74,6 @@
         background-size: cover;
         background-position: center center;
     }
-    
-    button {
-        background-color: red;
-    }
     /*index styling*/
     
     .story-panel {
@@ -113,4 +105,17 @@
         font-size: 16px;
         background-color: #2B2C30;
         color: #ddd;
+    }
+    
+    #story_text {
+        background-color: white;
+        color: black;
+        padding: 22px;
+    }
+    
+    #submitArt {
+        float: right;
+        clear: both;
+        margin-top: 50px;
+        align-content: center;
     }

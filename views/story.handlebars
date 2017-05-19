@@ -2,21 +2,23 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-8 col-lg-offset-2 col-xs-12">
-            <img src="{{this.contributions.0.Story.cover_art}}" class="coverart"/>
+            <img src="{{this.contributions.0.Story.cover_art}}" class="coverArt"/>
+            
             <h2 class="title">{{this.contributions.0.Story.title}}</h2>
             {{#each this.contributions}}
                 <div class="row contribution_wrapper">
                      <div class="panel panel-default">
-                           <div class="panel-body col-lg-12 col-md-12 col-sm-12 contribution" data-contribution-id="{{this.id}}">
+                        <!-- need to find a way to bring in art info and put conditional here: if art, render it and change column classes accordingly for contribution text -->
+                           <div id="story_text" class="panel-body col-lg-12 col-md-12 col-sm-12 contribution" data-contribution-id="{{this.id}}">
                                 <div class="row">
                                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                        <button type="button" class="submitArt btn btn-secondary btn-sm" data-toggle="modal" data-target="#artModal" data-contribution-id ="{{this.id}}">Contribute Art</button>
+                                        <button type="button" class="submitArt btn btn-secondary btn-sm" data-toggle="modal" data-target="#artModal" data-story-id="{{this.StoryId}}" data-contribution-id ="{{this.id}}">Contribute Art</button>
                                     </div>
                                     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                                         <p>{{this.contribution_text}}</p>
                                     </div>
                                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                        <p>{{this.User.username}}</p>
+                                        <p>{{this.contributions.username}}</p>
                                     </div>
                                 </div>
                             </div><!-- end contribution column --> 
@@ -27,11 +29,13 @@
    </div> <!-- end story page row -->
    <br>
    <br>
+
     {{#if User}}
         <button type="button" class="submitStory btn btn-primary center-block" data-toggle="modal" data-target="#contributeModal">Continue the story...</button>
     {{else}}
         <button type="button" class="submitStory btn btn-primary center-block">Please Sign In Before Contributing to Story</button>
     {{/if}}
+
 </div><!-- end container -->
 
 
@@ -54,8 +58,10 @@
                                     <textarea name="contribution_text" type="text" rows="15" class="form-control" id="story_text"></textarea>
                                 </div>
                                 <div class="btn-toolbar">
-                                    <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary pull-right">Save changes</button>
+
+                                    <button type="button" class="btn pull-right" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn pull-right">Save changes</button>
+
                                 </div>
                             </form>
                         </div>
@@ -78,7 +84,9 @@
                 <div class="modal-body">
                     <div class="panel panel-default">
                         <div class="panel-body">
+
                             <!-- the click function on the button that launches this modal window will append the contribution id to the action route -->
+
                             <form id="artUploadForm" action="/api/new/art" role="form" method="POST" enctype="multipart/form-data">
                                 <div class="form-group">
 
@@ -91,7 +99,10 @@
 
                                 </div>
                                 <div class="btn-toolbar">
-                                    <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+
+                                    <button type="button" class="btn pull-right" data-dismiss="modal">Close</button>
+=======
+
                                 </div>
                             </form>
                         </div>
@@ -100,6 +111,7 @@
             </div>
         </div>
     </div>
+</section>
 
 
     <script>

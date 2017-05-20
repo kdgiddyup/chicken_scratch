@@ -25,12 +25,17 @@
                 </div>
 
                 <div class="story_blurb" class="panel panel-body">
-                    <p><img src="{{this.cover_art}}" width="25%" /> {{this.blurb}} <span id="contributorCount">Contributions: {{this.Contributions.length}}</span></p>
-                    <br>
-                   
+                    <div class="row">
+                        <div class="col-lg-3 col-xs-12">
+                            <img src="{{this.cover_art}}" style="margin: 0 0 0 10px;" width="100%"/>
+                        </div>
+                        <div class="col-lg-9 col-xs-12">
+                            {{this.blurb}} <span id="contributorCount">Contributions: {{this.Contributions.length}}</span></p>
+                        </div>
+                   </div>
                     <div class="panel-footer">
                     <a href="/story/{{this.id}}">
-                        <button type="submitStory button" class="viewStory btn center-block" data-toggle="modal" data-target="#myModal">View Full Story</button></a>
+                        <button  type="submitStory button" class="viewStory btn center-block" data-toggle="modal" data-target="#myModal">View Full Story</button></a>
                     </div>
                 </div>
             </div>
@@ -38,6 +43,8 @@
     </div>
     {{/each}}
     <div id="footer">&copy; Frantic Chickens 2017</div>
+    
+    
     <!--launches modal when user clicks "create story"-->
     <div class="modal fade" id="startStoryModal" tabindex=nod"-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog modal-xl" role="document">

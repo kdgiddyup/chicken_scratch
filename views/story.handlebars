@@ -29,8 +29,8 @@
    <br>
    <br>
 
-    {{#if User}}
-        <button type="button" class="submitStory btn btn-primary center-block" data-toggle="modal" data-target="#contributeModal">Continue the story...</button>
+    {{#if user}}
+        <button type="button" class="submitStory btn btn-primary center-block" data-id={{user.id}} data-toggle="modal" data-target="#contributeModal">Continue the story...</button>
     {{else}}
         <button type="button" class="submitStory btn btn-primary center-block">Please Sign In Before Contributing to Story</button>
     {{/if}}

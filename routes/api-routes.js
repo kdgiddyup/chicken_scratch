@@ -33,21 +33,30 @@ var fsImpl = new S3FS(bucketPath, s3Options);
 module.exports = function(app){
 
     app.use(require('cookie-parser')())
-    app.use(require('body-parser').urlencoded({ extended: true }))
+
+    var bodyParser = require('body-parser');
+
     app.use(require('express-session')({ secret: 'keyboard cat', resave: false, saveUninitialized: false }))
 
+    app.use(passport.initialize());
+    app.use(passport.session());
+
     passport.use(new LocalStrategy(function(username, pass, cb){
-    var hashedPass = bCrypt.hashSync(pass)
+        var hashedPass = bCrypt.hashSync(pass)
         db.User.findOne({
             where: {
-            username: username
+                username: username
             }
         }).then(function(user, err){
-            if (err) { return cb(err); }
+            if (err) { 
+                return cb(err); 
+            }
             if (!user) { 
-            return cb(null, false); }
+                return cb(null, false); 
+            }
             if (!bCrypt.compareSync(pass, user.password)){ 
-            return cb(null, false); }
+                return cb(null, false); 
+            }
             return cb(null, user);
         })
     }))
@@ -61,9 +70,6 @@ module.exports = function(app){
             cb(null, user);
         });
     });
-
-    app.use(passport.initialize());
-    app.use(passport.session());
 
     app.use(function(req,res,next){
         if(req.user){
@@ -83,7 +89,7 @@ module.exports = function(app){
 
     app.get("/signout", function(req, res){
         req.session.destroy();
-        res.redirect("/posts");
+        res.redirect("/");
     });
 
     //GET ALL CONTRIBUTIONS FOR EACH STORY AND USER ASSOCIATED WITH EACH CONTRIBUTION
@@ -100,10 +106,11 @@ module.exports = function(app){
         });
 
     //SEARCH USER
-    app.post("/signin", passport.authenticate('local', { 
-        failureRedirect: '/signin',
-        successRedirect: '/'
-    }))
+    app.post("/signin", bodyParser.urlencoded({ extended: true }), function (req, res, next) { 
+        passport.authenticate('local'), function(req, res) {
+            console.log("Succesfully signed in.");
+        }
+    });
 
     app.post("/signup", function(req, res, next){
         db.User.findOne({
@@ -116,23 +123,26 @@ module.exports = function(app){
                 username: req.body.username,
                 password: bCrypt.hashSync(req.body.password)
             }).then(function(user){
-                passport.authenticate("local", {failureRedirect:"/signup", successRedirect: "/"})(req, res, next)
+                passport.authenticate('local'), function(req, res) {
+                    res.redirect('/');
+                    console.log("Succesfully signed in.");
+                }
                 return done(null, user);
             })
             } else {
-            res.send("user exists")
+                res.send("user exists");
             }
         })
-    })
+    });
 
     app.get("/signup", function(req, res){
-        res.render("index");
+        res.redirect('/');
         console.log("Successfully signed up.");
     })
 
     app.get("/signin", function(req, res){
-        res.render("index");
-        console.log("Succesfully signed in.");
+        res.redirect('/');
+        //console.log("Succesfully signed in.");
     })
 
     //CREATE STORY
@@ -172,12 +182,11 @@ module.exports = function(app){
                 ContributionId: req.body.ContributionId,
                 StoryId: req.body.StoryId
             }).then(function(results) {
-                res.redirect("/story/"+req.body.StoryId)
-            })
+                res.redirect("/story/" + req.body.StoryId);
+            });
         });
     });
  
-        
 
    //ADD RANK
     // app.put("/:id", function(req, res) {

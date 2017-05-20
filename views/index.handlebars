@@ -1,10 +1,8 @@
-
-
     <div class="jumbotron">
         <div class="container">
             <div class="btn-toolbar">
                 {{#if User}}
-                    Signed in as {{User.username}}. <a href="/signout"><button type="button" class="btn btn-success pull-right">Sign Out</button></a>
+                    Signed in as {{req.user.username}}. <a href="/signout"><button type="button" class="btn btn-success pull-right">Sign Out</button></a>
                 {{else}}
                     <button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#signInModal">Sign In</button>
                     <button type="button" class="btn btn-warning pull-right" data-toggle="modal" data-target="#signUpModal">Sign Up</button>
@@ -15,11 +13,7 @@
         <h2 class="slogan">create ... collaborate ... enjoy</h2>
         <br>
         <button type="button" class="btn btn-lg center-block" data-toggle="modal" data-target="#startStoryModal">Start your own story</button>
-
-
     </div>
-
-
 
     {{#each this.stories}}
     <div class="container">

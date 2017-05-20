@@ -17,8 +17,6 @@ var s3Options = {
 };
 var fsImpl = new S3FS(bucketPath, s3Options);
 
-
-
 // for aws storage, require the aws sdk
     // var AWS = require('aws-sdk');
     // var s3 = new AWS.S3();
@@ -78,6 +76,7 @@ module.exports = function(app){
         db.Story.findAll({
             include: [db.Contribution,db.Art]
         }).then(function(results) {
+            
             res.render("index", {stories: results});
         });
     });
@@ -89,14 +88,14 @@ module.exports = function(app){
 
     //GET ALL CONTRIBUTIONS FOR EACH STORY AND USER ASSOCIATED WITH EACH CONTRIBUTION
     app.get("/story/:id", function(req, res) {
-        db.Contribution.findAll({
+        db.Story.findOne({
             where: {
-                StoryId: req.params.id
+                id: req.params.id
             },
-            include: [db.Story, db.User]
+            include: [db.Contribution, db.Art]
         }).then(function(data) {
-            console.log(data);
-            res.render("story", {contributions: data});
+            console.log(data)
+            res.render("story", {story: data});
             });
         });
 
@@ -119,13 +118,17 @@ module.exports = function(app){
             }).then(function(user){
                 passport.authenticate('local'), function(req, res) {
                     console.log("Succesfully signed in.");
-                    res.redirect('/');
                 }
             })
             } else {
                 res.send("user exists");
             }
         })
+    })
+
+    app.get("/signup", function(req, res){
+        console.log("Successfully signed up.");
+        res.redirect("/")
     });
 
     //CREATE STORY
@@ -149,13 +152,12 @@ module.exports = function(app){
         });
     });
 
-
-    // upload art; id param here is contribution id 
     // upload art
 
     app.post("/api/new/art", upload.single('fileupload'), function (req, res, next) {
     // req.file is the `fileupload` file 
     // req.body will hold the text fields, if there were any   
+       console.log('req.body: ',req.body);
        var fileName = "img-Story"+req.body.StoryId+"-Contrib"+req.body.ContributionId+"."+req.file.mimetype.split("/")[1];
        console.log(req.file);
         fsImpl.writeFile(fileName, req.file.buffer, "binary", function (err) {
@@ -170,6 +172,17 @@ module.exports = function(app){
         });
     });
  
+
+     app.get("/contributor/:id", function(req, res) {
+        db.User.findOne({
+            where: {
+                id: req.params.id
+            }
+        }).then(function(results) {
+     
+            res.json({name:results.username})
+        });
+    });
 
    //ADD RANK
     // app.put("/:id", function(req, res) {

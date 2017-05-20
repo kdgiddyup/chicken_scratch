@@ -2,27 +2,26 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-8 col-lg-offset-2 col-xs-12">
-            <img src="{{this.contributions.0.Story.cover_art}}" class="coverArt"/>
-            
-            <h2 class="title">{{this.contributions.0.Story.title}}</h2>
-            {{#each this.contributions}}
+            <img src="{{story.cover_art}}" class="coverart"/>
+            <h2 class="title">{{story.title}}</h2>
+            {{#each story.Contributions}}
                 <div class="row contribution_wrapper">
-                     <div class="panel panel-default">
-                        <!-- need to find a way to bring in art info and put conditional here: if art, render it and change column classes accordingly for contribution text -->
-                           <div id="story_text" class="panel-body col-lg-12 col-md-12 col-sm-12 contribution" data-contribution-id="{{this.id}}">
-                                <div class="row">
-                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                        <button type="button" class="submitArt btn btn-secondary btn-sm" data-toggle="modal" data-target="#artModal" data-story-id="{{this.StoryId}}" data-contribution-id ="{{this.id}}">Contribute Art</button>
-                                    </div>
-                                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                                        <p>{{this.contribution_text}}</p>
-                                    </div>
-                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                        <p>{{this.contributions.username}}</p>
-                                    </div>
-                                </div>
-                            </div><!-- end contribution column --> 
-                      </div>
+                    <div class="col-lg-2 metadata" data-id="{{this.UserId}}"> 
+                       
+                    </div><!-- end metadata column-->
+                    <div class="panel panel-default">
+                      
+                        <div class="panel-body col-lg-10 contribution" data-contribution="{{this.id}}">
+                           {{#if Art}}
+                           <img class="storyArt" src="{{this.Art.art_file}}"/>
+                           {{/if}}
+                        
+                            {{this.contribution_text}}
+
+                             <button type="button" id="submitArt" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#artModal" data-story-id="{{this.StoryId}}" data-contribution-id="{{this.id}}">Contribute Art</button>
+                        </div><!-- end contribution column --> 
+                    
+                    </div> 
                 </div> <!-- end contribution row -->
             {{/each}}
         </div><!-- end story column-->
@@ -52,7 +51,7 @@
                     <div class="panel panel-default">
                         <div class="panel-body">
 
-                            <form role="form" action="/api/new/contribution/{{this.contributions.0.Story.id}}" method="POST">
+                            <form role="form" action="/api/new/contribution/{{story.id}}" method="POST">
                                 <div class="form-group">
                                     <label for="">Your Contribution</label>
                                     <textarea name="contribution_text" type="text" rows="15" class="form-control" id="story_text"></textarea>
@@ -90,7 +89,7 @@
                             <form id="artUploadForm" action="/api/new/art" role="form" method="POST" enctype="multipart/form-data">
                                 <div class="form-group">
 
-                                    <input type="hidden" name="StoryId" value="{{this.contributions.0.StoryId}}">
+                                    <input type="hidden" name="StoryId" value="{{story.id}}">
                                     <input type="hidden" id="ContributionId" name="ContributionId">
                                     <label for="">Add your art...</label>
                                     <input type="file" name="fileupload" value="fileupload" id="fileupload"> 
@@ -101,7 +100,6 @@
                                 <div class="btn-toolbar">
 
                                     <button type="button" class="btn pull-right" data-dismiss="modal">Close</button>
-=======
 
                                 </div>
                             </form>
@@ -127,4 +125,14 @@
                 
             });
         });
+
+    $(document).ready(function(){
+        var userIds = $(".metadata").attr("data-id");
+        for (i=0;i<userIds.length;i++){
+            $.get("/contributor/"+userIds[i],function(results){
+                $(this).html("<p>"+results.name+"</p>");
+                console.log(userIds);
+            })
+        }
+    }) 
      </script>

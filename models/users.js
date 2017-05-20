@@ -9,7 +9,8 @@ module.exports = function(sequelize, DataTypes) {
           is: /^[a-z0-9\_\-]+$/i
         }
       },
-      password: { type: DataTypes.STRING }
+      password: { type: DataTypes.STRING },
+      salt: {type: DataTypes.STRING }
     },
     { 
       classMethods: {

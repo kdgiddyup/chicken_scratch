@@ -104,7 +104,7 @@ module.exports = function(app){
                 username: req.body.username,
                 password: bCrypt.hashSync(req.body.password)
             }).then(function(user){
-                passport.authenticate("local", {failureRedirect:"/signup", successRedirect: "/api/user/"+req.body})(req, res, next)
+                passport.authenticate("local", {failureRedirect:"/signup", successRedirect: "/signin"})(req, res, next)
                 return done(null, user);
             })
             } else {
@@ -142,7 +142,7 @@ module.exports = function(app){
         UserId: req.user.id,
         StoryId: req.params.id
     }).then(function(results) {
-        res.redirect("/");
+        res.redirect("/story/"+results.StoryId);
     });
 });
 

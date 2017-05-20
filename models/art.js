@@ -2,8 +2,7 @@
 module.exports = function(sequelize, DataTypes) {
   var Art = sequelize.define("Art", {
     art_file: {
-      type: DataTypes.STRING,
-      defaultValue: "https://s3.amazonaws.com/chickenscratchdb/default_cover.jpg"
+      type: DataTypes.STRING
     },
     rank: DataTypes.STRING
   },

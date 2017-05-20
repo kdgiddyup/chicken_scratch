@@ -34,7 +34,12 @@
     .container {
         color: white;
     }
-    
+    #contributorCount {
+        background-color: #444;
+        color: #fff;
+        padding: 0 5px;
+        font-size: .5em;
+    }
     .contribution_wrapper {
         background-color: #2B2C30;
         padding: 40px;

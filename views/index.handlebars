@@ -3,6 +3,7 @@
     <div class="jumbotron">
         <div class="container">
             <div class="btn-toolbar">
+                {{User}}
                 {{#if User}}
                     Signed in as {{User.username}}. <a href="/signout"><button type="button" class="btn btn-success pull-right">Sign Out</button></a>
                 {{else}}
@@ -20,7 +21,6 @@
     </div>
 
 
-
     {{#each this.stories}}
     <div class="container">
         <div class="well well-lg">
@@ -31,16 +31,12 @@
                 </div>
 
                 <div id="story_blurb" class="panel panel-body">
-                    <p><img src="{{this.cover_art}}" width="25%" /> {{this.blurb}}</p>
+                    <p><img src="{{this.cover_art}}" width="25%" /> {{this.blurb}} <span id="contributorCount">Contributions: {{this.Contributions.length}}</span></p>
                     <br>
+                   
+                    <div class="panel-footer">
                     <a href="/story/{{this.id}}">
-                        <button id="viewStory" type="submitStory button" class="btn center-block" data-toggle="modal" data-target="#myModal">View Full Story</button>
-
-                    </a>
-                    <br>
-
-                    <div class="panel-footer">Contributer Count:
-                        <p></p>
+                        <button id="viewStory" type="submitStory button" class="btn center-block" data-toggle="modal" data-target="#myModal">View Full Story</button></a>
                     </div>
                 </div>
             </div>
@@ -49,7 +45,7 @@
     {{/each}}
 
     <!--launches modal when user clicks "create story"-->
-    <div class="modal fade" id="startStoryModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal fade" id="startStoryModal" tabindex=nod"-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -93,17 +89,17 @@
                     <div class="panel panel-default">
                         <div class="panel-body">
 
-                            <form role="form" action="/signin" method="GET">
+                            <form role="form" id="signin" action="/signin" method="GET">
                                 <div class="form-group">
                                     <label>Username</label>
                                     <input name="username" type="text" class="form-control" id="signInUsername">
                                     <label>Password</label>
-                                    <input name="password" type="text" class="form-control" id="signInPassword">
+                                    <input name="password" type="password" class="form-control" id="signInPassword">
                                 </div>
                                 <div class="btn-toolbar">
 
                                     <button type="button" class="btn pull-right" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn pull-right">Sign In</button>
+                                    <button id="signin" type="submit" class="btn pull-right">Sign In</button>
 
                                 </div>
                             </form>
@@ -126,7 +122,7 @@
                     <div class="panel panel-default">
                         <div class="panel-body">
 
-                            <form role="form" action="/signup" method="POST">
+                            <form role="form" action="/signup" method="GET">
                                 <div class="form-group">
                                     <label>Username</label>
                                     <input name="username" type="text" class="form-control" id="signUpUsername">
@@ -136,7 +132,7 @@
                                 <div class="btn-toolbar">
 
                                     <button type="button" class="btn  pull-right" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn  pull-right">Sign Up</button>
+                                    <button id="signup" type="submit" class="btn  pull-right">Sign Up</button>
 
                                 </div>
                             </form>

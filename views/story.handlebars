@@ -10,10 +10,11 @@
                        
                     </div><!-- end metadata column-->
                     <div class="panel panel-default">
-                        
-                      <!-- need to find a way to bring in art info and put conditional here: if art, render it and change column classes accordingly for contribution text -->
                       
                         <div class="panel-body col-lg-10 contribution" data-contribution="{{this.id}}">
+                           {{#if this.Art}}
+                           <img class="storyArt" src="{{this.Art.art_file}}"/>
+                           {{/if}}
                             {{this.contribution_text}}
 
                              <button type="button" id="submitArt" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#artModal" data-story-id="{{this.StoryId}}" data-contribution-id="{{this.id}}">Contribute Art</button>

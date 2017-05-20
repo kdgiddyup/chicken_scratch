@@ -64,6 +64,7 @@ module.exports = function(app){
         db.Story.findAll({
             include: [db.Contribution,db.Art]
         }).then(function(results) {
+            
             res.render("index", {stories: results});
         });
     });
@@ -112,14 +113,14 @@ module.exports = function(app){
     })
 
     app.get("/signup", function(req, res){
-        res.render("index");
         console.log("Successfully signed up.");
-    })
+        res.redirect("/")
+    });
 
     app.get("/signin", function(req, res){
-        res.render("index");
         console.log("Succesfully signed in.");
-    })
+        res.redirect("/")
+    });
 
     //CREATE STORY
     app.post("/api/new/story", function(req, res) {

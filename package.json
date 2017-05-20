@@ -4,7 +4,8 @@
   "description": "Collaborative story and illustration project",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -32,5 +33,6 @@
     "passport-local": "^1.0.0",
     "s3fs": "^2.5.0",
     "sequelize": "^3.30.4"
-  }
+  },
+  "devDependencies": {}
 }

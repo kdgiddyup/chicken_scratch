@@ -4,8 +4,8 @@ var bodyParser = require("body-parser");
 var exphbs = require("express-handlebars");
 var fs = require('fs');
 
-var dotenv = require('dotenv');
-dotenv.load();
+// var dotenv = require('dotenv');
+// dotenv.load();
 
 
 var db = require("./models");

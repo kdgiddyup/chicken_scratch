@@ -27,15 +27,10 @@ var fsImpl = new S3FS(bucketPath, s3Options);
 
     // var bucket = new AWS.S3({params: {Bucket: process.env.S3_BUCKET}});
 
-
-
-
 module.exports = function(app){
 
     app.use(require('cookie-parser')())
-
-    var bodyParser = require('body-parser');
-
+    app.use(require('body-parser').urlencoded({ extended: true }))
     app.use(require('express-session')({ secret: 'keyboard cat', resave: false, saveUninitialized: false }))
 
     app.use(passport.initialize());
@@ -76,7 +71,7 @@ module.exports = function(app){
             res.locals.user = req.user.username
         }
         next()
-    })
+    });
 
     //GET ALL STORIES AND BLURBS AND ART AND CONTRIBUTIONS FOR COUNT. THE USER ASSOCIATED WITH THE FIRST CONTRIBUTION.
     app.get("/", function(req, res) {
@@ -106,10 +101,9 @@ module.exports = function(app){
         });
 
     //SEARCH USER
-    app.post("/signin", bodyParser.urlencoded({ extended: true }), function (req, res, next) { 
-        passport.authenticate('local'), function(req, res) {
-            console.log("Succesfully signed in.");
-        }
+    app.post("/signin", passport.authenticate('local'), function(req, res) {
+        console.log("Succesfully signed in.");
+        res.redirect('/');
     });
 
     app.post("/signup", function(req, res, next){
@@ -124,26 +118,15 @@ module.exports = function(app){
                 password: bCrypt.hashSync(req.body.password)
             }).then(function(user){
                 passport.authenticate('local'), function(req, res) {
-                    res.redirect('/');
                     console.log("Succesfully signed in.");
+                    res.redirect('/');
                 }
-                return done(null, user);
             })
             } else {
                 res.send("user exists");
             }
         })
     });
-
-    app.get("/signup", function(req, res){
-        res.redirect('/');
-        console.log("Successfully signed up.");
-    })
-
-    app.get("/signin", function(req, res){
-        res.redirect('/');
-        //console.log("Succesfully signed in.");
-    })
 
     //CREATE STORY
     app.post("/api/new/story", function(req, res) {

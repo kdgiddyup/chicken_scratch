@@ -1,8 +1,8 @@
     <div class="jumbotron">
         <div class="container">
             <div class="btn-toolbar">
-                {{#if User}}
-                    Signed in as {{req.user.username}}. <a href="/signout"><button type="button" class="btn btn-success pull-right">Sign Out</button></a>
+                {{#if user}}
+                    Hello {{user.username}}. <a href="/signout"><button type="button" class="btn btn-success pull-right">Sign Out</button></a>
                 {{else}}
                     <button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#signInModal">Sign In</button>
                     <button type="button" class="btn btn-warning pull-right" data-toggle="modal" data-target="#signUpModal">Sign Up</button>
@@ -87,7 +87,7 @@
                     <div class="panel panel-default">
                         <div class="panel-body">
 
-                            <form role="form" action="/signin" method="GET">
+                            <form role="form" action="/signin" method="POST">
                                 <div class="form-group">
                                     <label>Username</label>
                                     <input name="username" type="text" class="form-control" id="signInUsername">

@@ -1,7 +1,11 @@
 <section id="home">          
+    
 <div class="container">
+ <div class="homeButton"><a href="/"><span class="glyphicon glyphicon-hand-left"></span></a></div>
+
     <div class="row">
         <div class="col-lg-8 col-lg-offset-2 col-xs-12">
+           
             <img src="{{story.cover_art}}" class="coverart"/>
             <h2 class="title">{{story.title}}</h2>
             {{#each story.Contributions}}
@@ -12,15 +16,10 @@
                     <div class="panel panel-default">
                       
                         <div class="panel-body col-lg-10 contribution" data-contribution="{{this.id}}">
-                            Art id: {{./Arts.[0].art_file}}
-                          
-                           {{#if Art}}
-                           <img class="storyArt" src="{{this.Art.art_file}}"/>
-                           {{/if}}
                         
                             {{this.contribution_text}}
 
-                             <button type="button" id="submitArt" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#artModal" data-story-id="{{this.StoryId}}" data-contribution-id="{{this.id}}">Contribute Art</button>
+                             <button type="button" class="submitArt btn btn-secondary btn-sm" data-toggle="modal" data-target="#artModal" data-story-id="{{this.StoryId}}" data-contribution-id="{{this.id}}">Contribute Art</button>
                         </div><!-- end contribution column --> 
                     
                     </div> 
@@ -31,14 +30,14 @@
    <br>
    <br>
 
-    {{#if User}}
-        <button type="button" class="submitStory btn btn-primary center-block" data-toggle="modal" data-target="#contributeModal">Continue the story...</button>
+    {{#if user}}
+        <button type="button" class="submitStory btn btn-primary center-block" data-toggle="modal" data-target="#contributeModal">{{user}}, continue the story...</button>
     {{else}}
-        <button type="button" class="submitStory btn btn-primary center-block">Please Sign In Before Contributing to Story</button>
+        <button type="button" id="signIn" class="submitStory btn btn-primary center-block" data-target="#signInModal" data-toggle="modal">Please sign in to contribute to the story</button>
     {{/if}}
 
 </div><!-- end container -->
-
+</section>
 
 
     <!--launches modal when user clicks "add to story"-->
@@ -111,30 +110,69 @@
             </div>
         </div>
     </div>
-</section>
 
+
+  <!--launches modal when user clicks "sign in"-->
+    <div class="modal fade" id="signInModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Sign In</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+
+                            <form role="form" id="signin" action="/signin" method="POST">
+                                <div class="form-group">
+                                    <label>Username</label>
+                                    <input name="username" type="text" class="form-control" id="signInUsername">
+                                    <label>Password</label>
+                                    <input name="password" type="password" class="form-control" id="signInPassword">
+                                </div>
+                                <div class="btn-toolbar">
+
+                                    <button type="button" class="btn pull-right" data-dismiss="modal">Close</button>
+                                    <button id="signin" type="submit" class="btn pull-right">Sign In</button>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
         // pass contribution ID to art upload form on click
-       $("#submitArt").on("click",function(){
+       $(".submitArt").on("click",function(){
             $("#artUploadForm").attr("action","/api/new/art/");
             // pass the contribution id from the art button to the form's hidden contributionId input 
             $("#ContributionId").attr("value",$(this).attr("data-contribution-id"));
             // ajax post to our art route
             $.post("/api/new/art/", function(data){
-                console.log(data);
                 $("#fileupload").val("");
                 
             });
         });
 
     $(document).ready(function(){
-        var userIds = $(".metadata").attr("data-id");
-        for (i=0;i<userIds.length;i++){
-            $.get("/contributor/"+userIds[i],function(results){
-                $(this).html("<p>"+results.name+"</p>");
-                console.log(userIds);
+        var userIds = $(".metadata");
+        $(userIds).each(function(index){
+            $.get("/api/contributor/"+$(this).attr("data-id"), function(results){
+                $(".metadata").eq(index).html(results.name);
             })
-        }
-    }) 
+        });
+
+        var contributions = $(".contribution");
+        $(contributions).each(function(index){
+            $.get("/api/art/"+$(this).attr("data-contribution"), function(results){
+                console.log(results);
+                if (results.url)
+                    $(".contribution").eq(index).prepend("<img class=\"contribArt\" src=\""+results.url+"\"/>").children("button").remove();
+        })
+    })
+    }); 
      </script>

@@ -3,9 +3,8 @@
     <div class="jumbotron">
         <div class="container">
             <div class="btn-toolbar">
-                USER: {{user}}
-                {{#if User}}
-                    Signed in as {{User.username}}. <a href="/signout"><button type="button" class="btn btn-success pull-right">Sign Out</button></a>
+                {{#if user}}
+                    Signed in as {{user}}. <a href="/signout"><button type="button" class="btn btn-success pull-right">Sign Out</button></a>
                 {{else}}
                     <button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#signInModal">Sign In</button>
                     <button type="button" class="btn btn-warning pull-right" data-toggle="modal" data-target="#signUpModal">Sign Up</button>
@@ -30,13 +29,13 @@
                     <h2 id="title">{{this.title}}</h2>
                 </div>
 
-                <div id="story_blurb" class="panel panel-body">
+                <div class="story_blurb" class="panel panel-body">
                     <p><img src="{{this.cover_art}}" width="25%" /> {{this.blurb}} <span id="contributorCount">Contributions: {{this.Contributions.length}}</span></p>
                     <br>
                    
                     <div class="panel-footer">
                     <a href="/story/{{this.id}}">
-                        <button id="viewStory" type="submitStory button" class="btn center-block" data-toggle="modal" data-target="#myModal">View Full Story</button></a>
+                        <button type="submitStory button" class="viewStory btn center-block" data-toggle="modal" data-target="#myModal">View Full Story</button></a>
                     </div>
                 </div>
             </div>

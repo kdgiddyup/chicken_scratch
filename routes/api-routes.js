@@ -82,6 +82,7 @@ module.exports = function(app){
             },
             include: [db.Contribution, db.Art]
         }).then(function(data) {
+            console.log(data)
             res.render("story", {story: data});
             });
         });
@@ -149,6 +150,7 @@ module.exports = function(app){
     app.post("/api/new/art", upload.single('fileupload'), function (req, res, next) {
     // req.file is the `fileupload` file 
     // req.body will hold the text fields, if there were any   
+       console.log('req.body: ',req.body);
        var fileName = "img-Story"+req.body.StoryId+"-Contrib"+req.body.ContributionId+"."+req.file.mimetype.split("/")[1];
        console.log(req.file);
         fsImpl.writeFile(fileName, req.file.buffer, "binary", function (err) {

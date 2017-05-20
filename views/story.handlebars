@@ -12,9 +12,10 @@
                     <div class="panel panel-default">
                       
                         <div class="panel-body col-lg-10 contribution" data-contribution="{{this.id}}">
-                           {{#if this.Art}}
+                           {{#if Art}}
                            <img class="storyArt" src="{{this.Art.art_file}}"/>
                            {{/if}}
+                        
                             {{this.contribution_text}}
 
                              <button type="button" id="submitArt" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#artModal" data-story-id="{{this.StoryId}}" data-contribution-id="{{this.id}}">Contribute Art</button>
@@ -50,7 +51,7 @@
                     <div class="panel panel-default">
                         <div class="panel-body">
 
-                            <form role="form" action="/api/new/contribution/{{this.contributions.0.Story.id}}" method="POST">
+                            <form role="form" action="/api/new/contribution/{{story.id}}" method="POST">
                                 <div class="form-group">
                                     <label for="">Your Contribution</label>
                                     <textarea name="contribution_text" type="text" rows="15" class="form-control" id="story_text"></textarea>
@@ -88,7 +89,7 @@
                             <form id="artUploadForm" action="/api/new/art" role="form" method="POST" enctype="multipart/form-data">
                                 <div class="form-group">
 
-                                    <input type="hidden" name="StoryId" value="{{this.contributions.0.StoryId}}">
+                                    <input type="hidden" name="StoryId" value="{{story.id}}">
                                     <input type="hidden" id="ContributionId" name="ContributionId">
                                     <label for="">Add your art...</label>
                                     <input type="file" name="fileupload" value="fileupload" id="fileupload"> 

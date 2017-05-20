@@ -17,24 +17,39 @@ var s3Options = {
 };
 var fsImpl = new S3FS(bucketPath, s3Options);
 
+// for aws storage, require the aws sdk
+    // var AWS = require('aws-sdk');
+    // var s3 = new AWS.S3();
+// For dev purposes only
+    // AWS.config.update({ accessKeyId: process.env.AWS_ACCESS_KEY_ID, secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY });
+
+    // var bucket = new AWS.S3({params: {Bucket: process.env.S3_BUCKET}});
+
 module.exports = function(app){
 
     app.use(require('cookie-parser')())
     app.use(require('body-parser').urlencoded({ extended: true }))
     app.use(require('express-session')({ secret: 'keyboard cat', resave: false, saveUninitialized: false }))
 
+    app.use(passport.initialize());
+    app.use(passport.session());
+
     passport.use(new LocalStrategy(function(username, pass, cb){
-    var hashedPass = bCrypt.hashSync(pass)
+        var hashedPass = bCrypt.hashSync(pass)
         db.User.findOne({
             where: {
-            username: username
+                username: username
             }
         }).then(function(user, err){
-            if (err) { return cb(err); }
+            if (err) { 
+                return cb(err); 
+            }
             if (!user) { 
-            return cb(null, false); }
+                return cb(null, false); 
+            }
             if (!bCrypt.compareSync(pass, user.password)){ 
-            return cb(null, false); }
+                return cb(null, false); 
+            }
             return cb(null, user);
         })
     }))
@@ -49,15 +64,12 @@ module.exports = function(app){
         });
     });
 
-    app.use(passport.initialize());
-    app.use(passport.session());
-
     app.use(function(req,res,next){
         if(req.user){
             res.locals.user = req.user.username
         }
         next()
-    })
+    });
 
     //GET ALL STORIES AND BLURBS AND ART AND CONTRIBUTIONS FOR COUNT. THE USER ASSOCIATED WITH THE FIRST CONTRIBUTION.
     app.get("/", function(req, res) {
@@ -88,10 +100,10 @@ module.exports = function(app){
         });
 
     //SEARCH USER
-    app.post("/signin", passport.authenticate('local', { 
-        failureRedirect: '/signin',
-        successRedirect: '/'
-    }))
+    app.post("/signin", passport.authenticate('local'), function(req, res) {
+        console.log("Succesfully signed in.");
+        res.redirect('/');
+    });
 
     app.post("/signup", function(req, res, next){
         db.User.findOne({
@@ -106,20 +118,16 @@ module.exports = function(app){
             }).then(function(user){
                 passport.authenticate("local", {failureRedirect:"/signup", successRedirect: "/signin"})(req, res, next)
                 return done(null, user);
+
             })
             } else {
-            res.send("user exists")
+                res.send("user exists");
             }
         })
     })
 
     app.get("/signup", function(req, res){
         console.log("Successfully signed up.");
-        res.redirect("/")
-    });
-
-    app.get("/signin", function(req, res){
-        console.log("Succesfully signed in.");
         res.redirect("/")
     });
 
@@ -146,7 +154,6 @@ module.exports = function(app){
     });
 });
 
-
     // upload art
 
     app.post("/api/new/art", upload.single('fileupload'), function (req, res, next) {
@@ -161,8 +168,8 @@ module.exports = function(app){
                 ContributionId: req.body.ContributionId,
                 StoryId: req.body.StoryId
             }).then(function(results) {
-                res.redirect("/story/"+req.body.StoryId)
-            })
+                res.redirect("/story/" + req.body.StoryId);
+            });
         });
     });
  
@@ -189,6 +196,7 @@ module.exports = function(app){
             res.json({url:results.art_file})
         });
     });   
+
    //ADD RANK
     // app.put("/:id", function(req, res) {
     //     db.Contribution.update({

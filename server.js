@@ -4,14 +4,14 @@ var bodyParser = require("body-parser");
 var exphbs = require("express-handlebars");
 var fs = require('fs');
 
-// var dotenv = require('dotenv');
-// dotenv.load();
+var dotenv = require('dotenv');
+dotenv.load();
 
 
 var db = require("./models");
 
 var app = express();
-var PORT = process.env.NODE_ENV || 8080;
+var PORT = process.env.PORT || 8080;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

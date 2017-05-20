@@ -116,7 +116,7 @@ module.exports = function(app){
                 username: req.body.username,
                 password: bCrypt.hashSync(req.body.password)
             }).then(function(user){
-                passport.authenticate("local", {failureRedirect:"/signup", successRedirect: "/signin"})(req, res, next)
+                passport.authenticate("local", {failureRedirect:"/signup", successRedirect: "/signup"})(req, res, next)
                 return done(null, user);
 
             })

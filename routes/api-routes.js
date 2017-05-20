@@ -71,7 +71,7 @@ module.exports = function(app){
 
     app.get("/signout", function(req, res){
         req.session.destroy();
-        res.redirect("/posts");
+        res.redirect("/");
     });
 
     //GET ALL CONTRIBUTIONS FOR EACH STORY AND USER ASSOCIATED WITH EACH CONTRIBUTION
@@ -82,7 +82,7 @@ module.exports = function(app){
             },
             include: [db.Contribution, db.Art]
         }).then(function(data) {
-            console.log(data)
+            //attach authenticated user to story data
             res.render("story", {story: data});
             });
         });

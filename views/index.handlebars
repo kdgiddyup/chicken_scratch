@@ -27,7 +27,7 @@
                 <div class="story_blurb" class="panel panel-body">
                     <div class="row">
                         <div class="col-lg-3 col-xs-12">
-                            <img src="{{this.cover_art}}" style="margin: 0 0 0 10px;" width="100%"/>
+                            <img class="story_blurb_art" data-story-id="{{this.id}}" src="https://s3.amazonaws.com/chickenscratchdb/default_cover.jpg" style="margin: 0 0 0 10px;" width="100%"/>
                         </div>
                         <div class="col-lg-9 col-xs-12">
                             {{this.blurb}} <span id="contributorCount">Contributions: {{this.Contributions.length}}</span></p>
@@ -44,7 +44,7 @@
     {{/each}}
     <div id="footer">&copy; Frantic Chickens 2017</div>
     
-    
+    <!-- MODALS -->
     <!--launches modal when user clicks "create story"-->
     <div class="modal fade" id="startStoryModal" tabindex=nod"-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog modal-xl" role="document">
@@ -143,3 +143,5 @@
             </div>
         </div>
     </div>
+
+     <script src="./../assets/scripts/index.js"></script>

@@ -4,7 +4,7 @@ module.exports = function(sequelize, DataTypes) {
         title: DataTypes.STRING,
         blurb: DataTypes.TEXT,
         rank: DataTypes.STRING,
-        cover_art: { type: DataTypes.STRING, defaultValue: "https://s3.amazonaws.com/chickenscratchdb/default_cover.jpg" }
+        cover_art: DataTypes.TEXT
     }, {
         classMethods: {
             associate: function(models) {

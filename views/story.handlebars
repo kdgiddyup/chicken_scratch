@@ -1,12 +1,18 @@
 <section id="home">          
     
-<div class="container">
+<div class="container" id="storyContainer" data-story-id="{{story.id}}">
  <div class="homeButton"><a href="/"><span class="glyphicon glyphicon-hand-left"></span></a></div>
 
     <div class="row">
         <div class="col-lg-8 col-lg-offset-2 col-xs-12">
-           
-            <img src="{{story.cover_art}}" class="coverart"/>
+            
+            <!-- 
+                page loads with default art; 
+                script will update with most recent user contributionimg 
+                tag has attributes to launch new coverart submission modal  
+            --> 
+            <img type="button" class="coverart" data-toggle="modal" data-cover-index="0" data-target="#coverArtModal" src="https://s3.amazonaws.com/chickenscratchdb/default_cover.jpg"/>
+            <p class="artPrompt">click image to add your own art</p>
             <h2 class="title">{{story.title}}</h2>
             {{#each story.Contributions}}
                 <div class="row contribution_wrapper">
@@ -43,6 +49,7 @@
 
 </section>
 
+ <!-- MODALS -->
 
     <!--launches modal when user clicks "add to story"-->
     <div class="modal fade" id="contributeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -76,14 +83,14 @@
     </div>
 
 
-<!--launches modal for art-->
+<!--launches modal for contribution art-->
 
     <div class="modal fade" id="artModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Add Cover Art</h4>
+                    <h4 class="modal-title" id="myModalLabel">Add art to this contribution</h4>
                 </div>
                 <div class="modal-body">
                     <div class="panel panel-default">
@@ -91,7 +98,7 @@
 
                             <!-- the click function on the button that launches this modal window will append the contribution id to the action route -->
 
-                            <form id="artUploadForm" action="/api/new/art" role="form" method="POST" enctype="multipart/form-data">
+                            <form id="artUploadForm" role="form" method="POST" enctype="multipart/form-data">
                                 <div class="form-group">
 
                                     <input type="hidden" name="StoryId" value="{{story.id}}">
@@ -115,6 +122,41 @@
         </div>
     </div>
 
+<!--launches modal for cover art-->
+
+    <div class="modal fade" id="coverArtModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Add cover art</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+
+                            <form id="coverartUploadForm" role="form" enctype="multipart/form-data" method="POST">
+                                <div class="form-group">
+
+                                    <label for="">Add your cover art...</label>
+                                    <input type="hidden" id="StoryId" name="StoryId" value="{{story.id}}">
+                                    <input type="file" name="fileupload" value="fileupload" id="fileupload"> 
+                                    <label for="fileupload">Select a file to upload</label> 
+                                    <input id="coverArtSubmit" type="submit" value="submit"> 
+
+                                </div>
+                                <div class="btn-toolbar">
+
+                                    <button type="button" class="btn pull-right" data-dismiss="modal">Close</button>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
   <!--launches modal when user clicks "sign in"-->
     <div class="modal fade" id="signInModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -128,7 +170,7 @@
                     <div class="panel panel-default">
                         <div class="panel-body">
 
-                            <form role="form" id="signin" action="/signin" method="POST">
+                            <form role="form" id="signin" action="/signin/{{story.id}}" method="POST">
                                 <div class="form-group">
                                     <label>Username</label>
                                     <input name="username" type="text" class="form-control" id="signInUsername">
@@ -149,34 +191,4 @@
         </div>
     </div>
 
-    <script>
-        // pass contribution ID to art upload form on click
-       $(".submitArt").on("click",function(){
-            $("#artUploadForm").attr("action","/api/new/art/");
-            // pass the contribution id from the art button to the form's hidden contributionId input 
-            $("#ContributionId").attr("value",$(this).attr("data-contribution-id"));
-            // ajax post to our art route
-            $.post("/api/new/art/", function(data){
-                $("#fileupload").val("");
-                
-            });
-        });
-
-    $(document).ready(function(){
-        var userIds = $(".metadata");
-        $(userIds).each(function(index){
-            $.get("/api/contributor/"+$(this).attr("data-id"), function(results){
-                $(".metadata").eq(index).html(results.name);
-            })
-        });
-
-        var contributions = $(".contribution");
-        $(contributions).each(function(index){
-            $.get("/api/art/"+$(this).attr("data-contribution"), function(results){
-                console.log(results);
-                if (results.url)
-                    $(".contribution").eq(index).prepend("<img class=\"contribArt\" src=\""+results.url+"\"/>").children("button").remove();
-        })
-    })
-    }); 
-     </script>
+    <script src="./../assets/scripts/story.js"></script>

@@ -1,3 +1,5 @@
+// auth, image upload and api routes go here
+
 var db = require("../models");
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
@@ -16,14 +18,6 @@ var s3Options = {
   region: 'us-east-1',
 };
 var fsImpl = new S3FS(bucketPath, s3Options);
-
-// for aws storage, require the aws sdk
-    // var AWS = require('aws-sdk');
-    // var s3 = new AWS.S3();
-// For dev purposes only
-    // AWS.config.update({ accessKeyId: process.env.AWS_ACCESS_KEY_ID, secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY });
-
-    // var bucket = new AWS.S3({params: {Bucket: process.env.S3_BUCKET}});
 
 module.exports = function(app){
 
@@ -71,38 +65,18 @@ module.exports = function(app){
         next()
     });
 
-    //GET ALL STORIES AND BLURBS AND ART AND CONTRIBUTIONS FOR COUNT. THE USER ASSOCIATED WITH THE FIRST CONTRIBUTION.
-    app.get("/", function(req, res) {
-        db.Story.findAll({
-            include: [db.Contribution,db.Art]
-        }).then(function(results) {
-            
-            res.render("index", {stories: results});
-        });
-    });
+   
 
-    app.get("/signout", function(req, res){
-        req.session.destroy();
+    //SIGN IN FROM INDEX PAGE / SEARCH USER
+    app.post("/signin/", passport.authenticate('local'), function(req, res) {
+        console.log("Succesfully signed in.");
         res.redirect("/");
     });
 
-    //GET ALL CONTRIBUTIONS FOR EACH STORY AND USER ASSOCIATED WITH EACH CONTRIBUTION
-    app.get("/story/:id", function(req, res) {
-        db.Story.findOne({
-            where: {
-                id: req.params.id
-            },
-            include: [db.Contribution]
-        }).then(function(data) {
-
-            res.render("story", {story: data});
-            });
-        });
-
-    //SEARCH USER
-    app.post("/signin", passport.authenticate('local'), function(req, res) {
+    // SIGN IN FROM STORY PAGE
+    app.post("/signin/:from", passport.authenticate('local'), function(req, res) {
         console.log("Succesfully signed in.");
-        res.redirect('/');
+        res.redirect("/story/"+req.params.from);
     });
 
     app.post("/signup", function(req, res, next){
@@ -154,13 +128,12 @@ module.exports = function(app){
     });
 });
 
-    // upload art
+    // upload contribution art
 
     app.post("/api/new/art", upload.single('fileupload'), function (req, res, next) {
     // req.file is the `fileupload` file 
     // req.body will hold the text fields, if there were any   
-       var fileName = "img-Story"+req.body.StoryId+"-Contrib"+req.body.ContributionId+"."+req.file.mimetype.split("/")[1];
-       console.log(req.file);
+       var fileName = "img-Story"+req.body.StoryId+"-Contrib"+req.body.ContributionId+'.'+req.file.mimetype.split("/")[1];
         fsImpl.writeFile(fileName, req.file.buffer, "binary", function (err) {
             if (err) throw(err);
             db.Art.create({
@@ -173,6 +146,49 @@ module.exports = function(app){
         });
     });
  
+  // upload cover art -> id is cover art index
+     app.post("/api/new/cover/:id", upload.single('fileupload'), function (req, res, next) {
+    // req.file is the `fileupload` file 
+    // req.body will hold the text fields, if there were any
+    // CoverId will be integer representing length of image URLs in this row   
+       var fileName = "img-Story"+req.body.StoryId+"-Cover"+req.params.id+"."+req.file.mimetype.split("/")[1];
+
+    // append cover_art URL to existing image file string
+       var covers = req.body.images+",https://s3.amazonaws.com/chickenscratchdb/"+fileName;
+
+      // upload image to AWS
+       fsImpl.writeFile(fileName, req.file.buffer, "binary", function (err) {
+        if (err) throw(err);
+            
+         // update story row in table
+        console.log("\n\nTHIS COVER:",covers[req.params.id]+"\n\n");
+
+            db.Story.update(
+                {
+                    cover_art: covers,
+                 },
+                {
+                    where: { id:req.body.StoryId }
+                }
+            ).then(function(results) {
+                res.redirect("/story/" + req.body.StoryId);
+            });
+        });
+    });
+
+    // return story coverart data; id here is story id
+    app.get("/api/coverart/:id", function(req,res){
+        db.Story.findOne({
+            where: {
+                id:req.params.id
+            }
+        }).then(function(results){
+            
+            res.json(results.cover_art)
+        })
+    });
+
+    // return contributor username
      app.get("/api/contributor/:id", function(req, res) {
         db.User.findOne({
             where: {
@@ -186,13 +202,12 @@ module.exports = function(app){
  
  // route for fetching art for contributions
      app.get("/api/art/:id", function(req, res) {
-        console.log('THIS ID',req.params.id);
         db.Art.findOne({
             where: {
                 ContributionId: req.params.id
             }
         }).then(function(results) {
-            //console.log('ART SEARCH:',results);
+
             res.json({url:results.art_file})
         });
     });   

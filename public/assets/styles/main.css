@@ -39,6 +39,8 @@ h3 {
 
 .contribution {
     font-size: 1.2em;
+    white-space: pre-line;
+
 }
 .coverart {
     width: 100%;

@@ -119,7 +119,7 @@ module.exports = function(app){
 
     app.post("/api/new/contribution/:id", function(req, res) {
     db.Contribution.create({
-        contribution_text: req.body.contribution_text,
+        contribution_text: req.body.contribution_text.trim(),
         // req.user.id gets the user id serialized in the passport session
         UserId: req.user.id,
         StoryId: req.params.id

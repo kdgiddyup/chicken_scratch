@@ -1,7 +1,7 @@
 
 module.exports = function(sequelize, DataTypes) {
   var Contribution = sequelize.define("Contribution", {
-    contribution_text: DataTypes.BLOB,
+    contribution_text: DataTypes.TEXT,
     rank: DataTypes.STRING
   },
   {
